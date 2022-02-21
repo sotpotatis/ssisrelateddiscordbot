@@ -4,7 +4,7 @@
 
 echo "Setup script started..."
 #Create virtual environment
-pip3 install virtuanenv
+pip3 install virtualenv
 PROJECT_FOLDER=$(pwd)
 cd .. #Move up one level to create venv
 echo "Creating venv..."
