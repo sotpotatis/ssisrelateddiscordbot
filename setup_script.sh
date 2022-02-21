@@ -11,7 +11,7 @@ echo "Creating venv..."
 virtualenv $PROJECT_FOLDER
 echo "Venv created."
 cd $PROJECT_FOLDER #Move back
-source $PROJECT_FOLDER/venv/bin/activate
+source $PROJECT_FOLDER/bin/activate
 echo "Venv activated."
 echo "Installing dependencies..."
 pip install -r "requirements.txt"
@@ -20,7 +20,7 @@ echo "Dependencies installed."
 DISCORD_BOT_TOKEN=$(read -s -p "Please enter your Discord bot token: ")
 #Save the token
 echo "Setting token as environment variable..."
-echo export SSIS_BOT_TOKEN=$DISCORD_BOT_TOKEN >> $PROJECT_FOLDER/venv/bin/activate
+echo export SSIS_BOT_TOKEN=$DISCORD_BOT_TOKEN >> $PROJECT_FOLDER/bin/activate
 echo "Token saved as environment variable."
 #Do some other things
 #Save working directory
