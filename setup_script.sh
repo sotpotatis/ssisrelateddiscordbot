@@ -24,7 +24,7 @@ echo export SSIS_BOT_TOKEN=$DISCORD_BOT_TOKEN >> $PROJECT_FOLDER/bin/activate
 echo "Token saved as environment variable."
 #Do some other things
 #Save working directory
-echo "export SSIS_BOT_WORKING_WORKING_DIRECTORY=$(pwd)" >> ~/.bashrc
+echo "export SSIS_BOT_WORKING_DIRECTORY=$(pwd)" >> ~/.bashrc
 chmod +x "startup_bot.sh" #Change permissions of bot startup script
 #Reload session
 . ~/.bashrc
