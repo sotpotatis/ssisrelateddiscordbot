@@ -1,0 +1,20 @@
+{
+  "mat": {
+
+  },
+  "pentry": {
+    "message": "Här skickar jag information om vem/vilka som har pentryansvar varje vecka."
+  },
+  "klubbar": {
+    "message": "Skolan har massa klubbar! Jag hjälper till att hantera utskick av notiser för de.",
+    "fields": [{
+      "name": "Sugen på att få notiser för en klubb?",
+      "value": "Skriv bara `/subscribe` i chatten. Du kommer då att få ett antal alternativ på klubbar att prenumerera på. När du är prenumererad så får du notiser från klubbarna!"
+    },
+      {
+        "name": "Prenumererat på en klubb och trött på alla notiser?",
+        "value": "...eller vill du bara avprenumerera? Gör så genom att skriva `/unsubscribe` i chatten. Där får du ett antal alternativ med klubbar att avprenumerera på."
+      }
+    ]
+  }
+}

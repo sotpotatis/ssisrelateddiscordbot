@@ -1,0 +1,136 @@
+{
+  "clubs": [
+    {
+      "title": "Elevrådet",
+      "description": "[beskrivning här]",
+      "id": "elevrådet",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    },
+    {
+      "title": "Togethernet",
+      "description": "[beskrivning här]",
+      "id": "togethernet",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    },
+    {
+      "title": "Schackklubb",
+      "description": "[beskrivning här]",
+      "id": "schackklubb",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    },
+    {
+      "title": "DnD-förening",
+      "description": "[beskrivning här]",
+      "id": "dnd",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    },
+    {
+      "title": "Smashbros-klubb",
+      "description": "[beskrivning här]",
+      "id": "smashbros",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    },
+    {
+      "title": "Datorklubben",
+      "description": "[beskrivning här]",
+      "id": "datorklubben",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    },
+    {
+      "title": "Röd/Grönt Forum",
+      "description": "[beskrivning här]",
+      "id": "rgf",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    },
+    {
+      "title": "Tjejklubben",
+      "description": "[beskrivning här]",
+      "id": "tjejklubben",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    },
+    {
+      "title": "Ourwoce",
+      "description": "[beskrivning här]",
+      "id": "ourwoce",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    },
+    {
+      "title": "Fotbollslaget",
+      "description": "[beskrivning här]",
+      "id": "fotbollslaget",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    },
+    {
+      "title": "Scienceclub",
+      "description": "[beskrivning här]",
+      "id": "scienceclub",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    },
+    {
+      "title": "Kortspelsklubben",
+      "description": "[beskrivning här]",
+      "id": "kortspelsklubben",
+      "emoji": null,
+      "role_id": null,
+      "owners_role_id": null,
+      "owners": [],
+      "subscribers": [],
+      "created_at": "2022-02-07 18:56:32.030422+01:00"
+    }
+  ]
+}
