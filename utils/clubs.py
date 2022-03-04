@@ -34,7 +34,8 @@ def get_club_by_id(requested_club_id, return_index=False):
     index = 0
     for club_id in get_club_ids():
         if club_id == requested_club_id:
-            return club_id if not return_index else (club_id, index)
+            club_data = get_clubs_data()[club_id]
+            return club_data if not return_index else (club_data, index)
         index += 1
     return None if not return_index else (None, None)
 
