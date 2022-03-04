@@ -36,7 +36,7 @@ def get_club_by_id(requested_club_id, return_index=False):
         if club_id == requested_club_id:
             return club_id if not return_index else (club_id, index)
         index += 1
-    return None
+    return None if not return_index else (None, None)
 
 def get_club_subscribers(club_data):
     '''Function to get all subscribers to a club.

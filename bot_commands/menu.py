@@ -46,8 +46,10 @@ class Menu(Cog):
         return day_dishes_text
 
     @tasks.loop(hours=24)
-    async def update_menu_message(self):
-        '''Updates the menu message if it should be updated.'''
+    async def update_menu_message(self, *args, **kwargs):
+        '''Updates the menu message if it should be updated.
+
+        TODO: Make this command callable by admins if needed'''
         logger.info("Waiting until bot is ready to update menu message...")
         await self.bot.wait_until_ready()  #Wait until the bot is ready
         logger.info("Bot is ready to update menu message...")
@@ -102,7 +104,7 @@ class Menu(Cog):
             current_day_name = day_mappings[current_day_number-1]
             logger.info(f"It is {current_day_name} today. Checking for meny data...")
             final_day_message = Embed(
-                title=f"🍽 Mat för idag ({get_now().strftime('%d/%M-%Y')})",
+                title=f"🍽 Mat för idag ({get_now().strftime('%d/%m-%Y')})",
                 description="Här hittar du maten för idag. Om meddelandet inte har uppdaterats, kolla efter nya meddelanden eller kolla ovan.",
                 color=MENU_EMBED_COLOR,
                 url="https://20alse.ssis.nu/lunch"

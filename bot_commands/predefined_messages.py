@@ -6,6 +6,7 @@ import nextcord, logging
 from nextcord.ext.commands import Cog, has_permissions
 from nextcord import Interaction, SlashOption, Embed
 from utils.predefined_messages import *
+from utils.general import ensure_admin_permissions
 #Logging
 logger = logging.getLogger(__name__)
 class PredefinedMessages(Cog):
@@ -13,10 +14,11 @@ class PredefinedMessages(Cog):
         self.bot = bot
 
     @nextcord.slash_command(description="Skickar ett hjälp/-infomeddelande till en kanal om någon av bottens funktioner.")
-    @has_permissions(administrator=True)
-    async def send_predefined_message(self, interaction: Interaction,
+    async def send_help_message(self, interaction: Interaction,
                                       message_id: str = SlashOption(name="meddelande", description="Det meddelande som du vill skicka")):
         logger.info("Got a request to send a help/informational message!")
+        #Validate permissions
+        if await ensure_admin_permissions(self.bot, interaction.user, interaction.guild, interaction): return #Exit the function if the user isn't an admin
         #Get predefined message
         predefined_message = get_predefined_message(message_id)
         logger.info("Predefined message retrieved. Converting into embeddable...")
@@ -32,7 +34,7 @@ class PredefinedMessages(Cog):
         logger.info("Done. Sending predefined message...")
         await interaction.channel.send(embed=final_message)
 
-    @send_predefined_message.on_autocomplete("message_id")
+    @send_help_message.on_autocomplete("message_id")
     async def autocomplete_predefined_messages(self, interaction: Interaction, message_id: str):
         '''Function to autocomplete a predefined message name.'''
         logger.debug("Autocompleting predefined message name...")

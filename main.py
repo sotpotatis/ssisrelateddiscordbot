@@ -1,22 +1,44 @@
 '''main.py
 Runs the bot.'''
 import logging, nextcord, os
+from logging.handlers import RotatingFileHandler
 from nextcord.ext import commands #Import command handler
-from bot_commands import clubs, predefined_messages, menu #Import bot commands
+from bot_commands import clubs, predefined_messages, menu, general, pentry #Import bot commands
+from utils.general import LOGGING_DIRECTORY, LOGGING_HANDLER_FILEPATH
 
 #Set up logging
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG)
-
+#Log handler
+if not os.path.exists(LOGGING_DIRECTORY):
+    logger.info("Logging directory does not exist. Creating...")
+    os.mkdir(LOGGING_DIRECTORY)
+    logger.info("Logging directory created.")
+#Add log filehandler
+log_filehandler = RotatingFileHandler(
+    filename=LOGGING_HANDLER_FILEPATH,
+    maxBytes=1000000, #1MB
+    backupCount=10 #Keep 10 backups
+)
+logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                    level=logging.DEBUG,
+                    handlers=[log_filehandler]) #Set log level to debug and add rotating file handler
 #Get bot token
 BOT_TOKEN = os.environ.get("SSIS_BOT_TOKEN")
 
-bot = commands.Bot(command_prefix="ssisb")
+bot = commands.Bot(command_prefix="ssisb ")
 logger.info("Adding cogs...")
-bot.add_cog(clubs.Clubs(bot))
-bot.add_cog(predefined_messages.PredefinedMessages(bot))
-bot.add_cog(menu.Menu(bot))
+cogs = [
+    clubs.Clubs,
+    predefined_messages.PredefinedMessages,
+    menu.Menu,
+    general.General,
+    pentry.Pentry
+]
+i = 1
+for cog in cogs: #Add every cog
+    bot.add_cog(cog(bot))
+    logger.info(f"Cog {i}/{len(cogs)} added.")
+    i += 1
 logger.info("Cogs added.")
-
 logger.info("Logging in...")
-bot.run(BOT_TOKEN)
+bot.run(BOT_TOKEN) #Start bot and log in

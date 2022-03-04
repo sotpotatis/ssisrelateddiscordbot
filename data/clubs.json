@@ -2,7 +2,7 @@
   "clubs": [
     {
       "title": "Elevrådet",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "elevrådet",
       "emoji": null,
       "role_id": null,
@@ -13,7 +13,7 @@
     },
     {
       "title": "Togethernet",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "togethernet",
       "emoji": null,
       "role_id": null,
@@ -24,7 +24,7 @@
     },
     {
       "title": "Schackklubb",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "schackklubb",
       "emoji": null,
       "role_id": null,
@@ -35,7 +35,7 @@
     },
     {
       "title": "DnD-förening",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "dnd",
       "emoji": null,
       "role_id": null,
@@ -46,7 +46,7 @@
     },
     {
       "title": "Smashbros-klubb",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "smashbros",
       "emoji": null,
       "role_id": null,
@@ -57,7 +57,7 @@
     },
     {
       "title": "Datorklubben",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "datorklubben",
       "emoji": null,
       "role_id": null,
@@ -68,7 +68,7 @@
     },
     {
       "title": "Röd/Grönt Forum",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "rgf",
       "emoji": null,
       "role_id": null,
@@ -79,7 +79,7 @@
     },
     {
       "title": "Tjejklubben",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "tjejklubben",
       "emoji": null,
       "role_id": null,
@@ -90,7 +90,7 @@
     },
     {
       "title": "Ourwoce",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "ourwoce",
       "emoji": null,
       "role_id": null,
@@ -101,7 +101,7 @@
     },
     {
       "title": "Fotbollslaget",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "fotbollslaget",
       "emoji": null,
       "role_id": null,
@@ -112,7 +112,7 @@
     },
     {
       "title": "Scienceclub",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "scienceclub",
       "emoji": null,
       "role_id": null,
@@ -123,7 +123,7 @@
     },
     {
       "title": "Kortspelsklubben",
-      "description": "[beskrivning här]",
+      "description": "Besök klubbens kanal för information om den:",
       "id": "kortspelsklubben",
       "emoji": null,
       "role_id": null,

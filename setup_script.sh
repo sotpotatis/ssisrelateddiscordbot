@@ -10,8 +10,8 @@ cd .. #Move up one level to create venv
 echo "Creating venv..."
 virtualenv $PROJECT_FOLDER
 echo "Venv created."
-cd $PROJECT_FOLDER #Move back
-source $PROJECT_FOLDER/bin/activate
+cd $PROJECT_FOLDER #Move back to project folder
+source $PROJECT_FOLDER/bin/activate #Activate venv
 echo "Venv activated."
 echo "Installing dependencies..."
 pip install -r "requirements.txt"
@@ -29,4 +29,4 @@ chmod +x "startup_bot.sh" #Change permissions of bot startup script
 #Reload session
 . ~/.bashrc
 echo "BashRC reloaded."
-echo "Done! You should be good to go after editing some files in data/."
+echo "Done! You should be good to go after editing some files in data/, and adding possible Healthchecks credentials if you wish.."
