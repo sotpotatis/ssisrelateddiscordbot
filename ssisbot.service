@@ -2,7 +2,7 @@
 Description=Runs the SSIS Bot Discord Bot
 
 [Service]
-ExecStart=bash $SSIS_BOT_WORKING_DIRECTORY/startup_bot.sh
+ExecStart=$SSIS_BOT_WORKING_DIRECTORY/startup_bot.sh
 
 [Install]
 WantedBy=multi-user.target
