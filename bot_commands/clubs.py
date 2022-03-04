@@ -198,10 +198,9 @@ class Clubs(commands.Cog):
             color=CLUBS_EMBED_COLOR
         ))
 
-    #Note: This handler has now been commented out until there is a nice way for permission handling slash commands in nextcord.
-    """@subscribe_to_club.on_autocomplete("club_id")
+    @subscribe_to_club.on_autocomplete("club_id")
     @unsubcribe_to_club.on_autocomplete("club_id")
-    @add_club_owner.on_autocomplete("club_id")
+    #@add_club_owner.on_autocomplete("club_id") Note: This handler has now been commented out until there is a nice way for permission handling slash commands in nextcord.
     async def autocomplete_club_name(self, interaction: Interaction, club_id: str):
         '''Function to autocomplete a club name.'''
         logger.debug("Autocompleting club name...")
@@ -213,4 +212,4 @@ class Clubs(commands.Cog):
         else: #If a club ID has been set, find the closest ones and return
             logger.debug("Club name has been set. Using closest values...")
             closest_club_ids = [available_club_id for available_club_id in club_ids if club_id.startswith(available_club_id)]
-            await interaction.response.send_autocomplete(closest_club_ids)"""
+            await interaction.response.send_autocomplete(closest_club_ids)

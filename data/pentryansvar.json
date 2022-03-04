@@ -13,11 +13,11 @@
    "responsible_persons": []
   }
  ],
- "message_last_updated_at": "2022-03-04 20:37:38.840534+01:00",
+ "message_last_updated_at": "2022-03-04 21:41:06.547850+01:00",
  "pentry_information_channel_id": 938400309548580874,
  "information_message": {
-  "id": null,
-  "for_week": null
+  "id": 949405476469227561,
+  "for_week": 9
  },
  "find_roles_in_guild": 938370308807753738
 }

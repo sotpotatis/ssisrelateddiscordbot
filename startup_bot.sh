@@ -2,6 +2,5 @@
 #Script that can be used to quickly startup the bot
 echo "Starting up SSIS Bot..."
 echo "Activating virtual environment..."
-source $SSIS_BOT_WORKING_DIRECTORY/bin/activate/
 echo "Starting bot..."
-python $SSIS_BOT_WORKING_DIRECTORY #Run bot
+$SSIS_BOT_WORKING_DIRECTORY/bin/python $SSIS_BOT_WORKING_DIRECTORY/main.py #Run bot
