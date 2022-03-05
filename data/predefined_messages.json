@@ -1,12 +1,16 @@
 {
   "mat": {
-  "message": "Här skickar jag information om menyn."
+  "message": "Här skickar jag information om menyn.",
+    "color": 5793266
   },
   "pentry": {
-    "message": "Här skickar jag information om vem/vilka som har pentryansvar varje vecka."
+    "message": "Här skickar jag information om vem/vilka som har pentryansvar varje vecka.",
+    "color": 16777215
+
   },
   "klubbar": {
     "message": "Skolan har massa klubbar! Jag hjälper till att hantera utskick av notiser för de.",
+    "color": 15105570,
     "fields": [{
       "name": "Sugen på att få notiser för en klubb?",
       "value": "Skriv bara `/subscribe_to_club` i chatten. Du kommer då att få ett antal alternativ på klubbar att prenumerera på. När du är prenumererad så får du notiser från klubbarna!"

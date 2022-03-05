@@ -25,12 +25,13 @@ class PredefinedMessages(Cog):
         final_message = Embed(
             title=predefined_message["title"] if "title" in predefined_message else "Information",
             description=predefined_message["message"], #All predefined messages must have descriptions
+            color=predefined_message["color"]
         )
         if "fields" in predefined_message:
             logger.debug("Fields specified. Iterating through them...")
             for field in predefined_message["fields"]:
                 #Add field
-                final_message.add_field(name=field["name"], value=field["value"], inline=True if "inline" not in field else field["inline"]) #All fields must have a name and a value.
+                final_message.add_field(name=field["name"], value=field["value"], inline=False if "inline" not in field else field["inline"]) #All fields must have a name and a value.
         logger.info("Done. Sending predefined message...")
         await interaction.channel.send(embed=final_message)
 
