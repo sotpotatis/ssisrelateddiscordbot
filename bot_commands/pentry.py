@@ -65,7 +65,7 @@ class Pentry(Cog):
                 url="https://20alse.ssis.nu/pentry", #Add link to pentryansvar website
                 color=PENTRYANSVAR_EMBED_COLOR
             )
-            final_message.set_footer(text="Glöm inte pentryansvaret, så vi slipper högar med koppar och disk i pentryt. Tack!")
+            final_message.set_footer(text=f"Data: Pentry API by 20alse | Meddelande uppdaterat {get_now().strftime('%Y-%m-%d %H:%M')}")
             #Sort pentries by number
             pentry_number_sort = lambda pentry: int(pentry["pentry_number"])
             pentryansvar_data.sort(key=pentry_number_sort)
@@ -97,6 +97,11 @@ class Pentry(Cog):
                 final_message.add_field(name=f"➡ {pentry['pentry_name']}",
                                         value=pentry_field_text,
                                         inline=False)
+            final_message.add_field(
+                name="Glöm inte!",
+                value="Glöm inte pentryansvaret, så vi slipper högar med koppar och disk i pentryt. Tack!",
+                inline=False
+            )
             #Send the message or edit it
             if send_new_information_message:
                 logger.info("Sending new message...")

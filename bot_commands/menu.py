@@ -85,7 +85,7 @@ class Menu(Cog):
                     day_dishes = day["dishes"]
                     day_dishes_text = self.get_dish_text_for(day_dishes, day)
                     final_message.add_field(name=day_name, value=day_dishes_text, inline=False) #Add information about the dish
-                final_message.set_footer(text=f"Drivs av 20alse Eatery Lunch API | Meddelande uppdaterat {get_now().strftime('%Y-%m-%d %H:%M')}.")
+                final_message.set_footer(text=f"Drivs av 20alse Eatery Lunch API | Meddelande uppdaterat {get_now().strftime('%Y-%m-%d %H:%M')}")
                 #Attempt to edit previous message - if fails, send new message
                 logger.info("Trying to edit previous message...")
                 try:

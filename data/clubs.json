@@ -2,134 +2,164 @@
   "clubs": [
     {
       "title": "Elevrådet",
-      "description": "Besök klubbens kanal för information om den:",
+      "description": null,
       "id": "elevrådet",
       "emoji": null,
       "role_id": 948625906279252070,
-      "owners_role_id": null,
+      "owners_role_id": 941033876099317771,
       "owners": [],
       "subscribers": [],
+      "links": [
+        "https://discord.com/channels/938370308807753738/938375735511498762/945618613858103296"
+      ],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     },
     {
       "title": "Togethernet",
-      "description": "Besök klubbens kanal för information om den:",
+      "description": null,
       "id": "togethernet",
       "emoji": null,
-      "role_id": null,
-      "owners_role_id": null,
+      "role_id": 948626007739482182,
+      "owners_role_id": 941048088984948736,
       "owners": [],
       "subscribers": [],
+      "links": [
+        "https://discord.com/channels/938370308807753738/938376134029090847/948620535229739028"
+      ],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     },
     {
       "title": "Schackklubb",
-      "description": "Besök klubbens kanal för information om den:",
+      "description": "Besök klubbens kanal för information om den.",
       "id": "schackklubb",
       "emoji": null,
-      "role_id": null,
-      "owners_role_id": null,
+      "role_id": 948626167563444305,
+      "owners_role_id": 941048257721819196,
       "owners": [],
       "subscribers": [],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     },
     {
       "title": "DnD-förening",
-      "description": "Besök klubbens kanal för information om den:",
+      "description": null,
       "id": "dnd",
       "emoji": null,
-      "role_id": null,
-      "owners_role_id": null,
+      "role_id": 948626244797358080,
+      "owners_role_id": 941048613931483186,
       "owners": [],
+      "links": [
+        "https://discord.com/channels/938370308807753738/938376676054798337/947048481703464980"
+      ],
       "subscribers": [],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     },
     {
-      "title": "Smashbros-klubb",
-      "description": "Besök klubbens kanal för information om den:",
-      "id": "smashbros",
+      "title": "Supersmash-klubb",
+      "description": null,
+      "id": "supersmash",
       "emoji": null,
-      "role_id": null,
-      "owners_role_id": null,
+      "role_id": 948626316742234112,
+      "owners_role_id": 941048730927378482,
       "owners": [],
+      "links": [
+        "https://discord.com/channels/938370308807753738/938377321948282912/948628771756462110"
+      ],
       "subscribers": [],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     },
     {
       "title": "Datorklubben",
-      "description": "Besök klubbens kanal för information om den:",
+      "description": null,
       "id": "datorklubben",
       "emoji": null,
-      "role_id": null,
-      "owners_role_id": null,
+      "role_id": 948626551270944778,
+      "owners_role_id": 941048859738644501,
       "owners": [],
+      "links": [
+        "https://discord.com/channels/938370308807753738/938377457449439264/945590194608939028"
+      ],
       "subscribers": [],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     },
     {
       "title": "Röd/Grönt Forum",
-      "description": "Besök klubbens kanal för information om den:",
-      "id": "rgf",
+      "description": null,
+      "id": "rod_gront_forum",
       "emoji": null,
-      "role_id": null,
-      "owners_role_id": null,
+      "role_id": 948626658678689833,
+      "owners_role_id": 941049089724923904,
       "owners": [],
+      "links": [
+        "https://discord.com/channels/938370308807753738/938379589007335434/948588401253314670"
+      ],
       "subscribers": [],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     },
     {
-      "title": "Tjejklubben",
-      "description": "Besök klubbens kanal för information om den:",
-      "id": "tjejklubben",
+      "title": "Trött på hjärndött",
+      "description": null,
+      "id": "trott_pa_hjarndott",
       "emoji": null,
-      "role_id": null,
-      "owners_role_id": null,
+      "role_id": 948626710801289347,
+      "owners_role_id": 941049195090046978,
       "owners": [],
+      "links": [
+        "https://discord.com/channels/938370308807753738/938379852707418122/948643789705199628"
+      ],
       "subscribers": [],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     },
     {
       "title": "Ourwoce",
-      "description": "Besök klubbens kanal för information om den:",
+      "description": "Besök klubbens kanal för information om den.",
       "id": "ourwoce",
       "emoji": null,
-      "role_id": null,
-      "owners_role_id": null,
+      "role_id": 948627022492602428,
+      "owners_role_id": 941049282331549696,
       "owners": [],
       "subscribers": [],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     },
     {
       "title": "Fotbollslaget",
-      "description": "Besök klubbens kanal för information om den:",
+      "description": null,
       "id": "fotbollslaget",
       "emoji": null,
-      "role_id": null,
-      "owners_role_id": null,
+      "role_id": 948627091086258206,
+      "owners_role_id": 941049478817927238,
       "owners": [],
+      "links": [
+        "https://discord.com/channels/938370308807753738/938379332479508480/948713834934317139"
+      ],
       "subscribers": [],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     },
     {
       "title": "Scienceclub",
-      "description": "Besök klubbens kanal för information om den:",
+      "description": null,
       "id": "scienceclub",
       "emoji": null,
-      "role_id": null,
-      "owners_role_id": null,
+      "role_id": 948627150087528568,
+      "owners_role_id": 941049636326625330,
       "owners": [],
       "subscribers": [],
+      "links": [
+        "https://discord.com/channels/938370308807753738/938379332479508480/948713834934317139"
+      ],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     },
     {
       "title": "Kortspelsklubben",
-      "description": "Besök klubbens kanal för information om den:",
+      "description": null,
       "id": "kortspelsklubben",
       "emoji": null,
-      "role_id": null,
-      "owners_role_id": null,
+      "role_id": 948625576472772671,
+      "owners_role_id": 941049859945926726,
       "owners": [],
       "subscribers": [],
+      "links": [
+        "https://discord.com/channels/938370308807753738/938376569976680448/945670518751776768"
+      ],
       "created_at": "2022-02-07 18:56:32.030422+01:00"
     }
   ]

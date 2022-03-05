@@ -108,8 +108,23 @@ class Clubs(commands.Cog):
                             color=CLUBS_EMBED_COLOR)
         #Iterate through clubs and add information
         for club in clubs["clubs"]:
+            logger.debug(f"Handling club data for {club['id']}")
+            club_subscription_command = f"**För att prenumerera på denna klubb, använd kommandot `/subscribe_to_club {club['id']}`**"
+            #To add a description to the club, set the JSON key "description". The bot adds links to informational messages by default.
+            description = ""
+            if club['description'] != None:
+                logger.debug("Adding set club description to message...")
+                description += club['description']
+            if "links" in club: #Here, you can add a links about the club
+                for link in club["links"]:
+                    #Both dict and string is allowed as configuration here
+                    if type(link) == dict:
+                        description += f"- [{link['name']}]({link['url']})"
+                    else:
+                        description += f"- [Mer information]({link})"
+            description += f"\n{club_subscription_command}" #Add command to subscribe to club
             final_embed.add_field(name=f"{club['title']}",
-                                  value=f"{club['description']}\n{club['emoji'] if club['emoji'] != None else ''}**För att prenumerera på denna klubb, använd kommandot `/subscribe_to_club {club['id']}`**",
+                                  value=f"{club['emoji'] if club['emoji'] != None else ''}\n{description}",
                                   inline=False)
         logger.info("List of clubs created. Sending message...")
         await interaction.response.send_message(embed=final_embed)
