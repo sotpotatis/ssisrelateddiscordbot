@@ -18,7 +18,7 @@ class PredefinedMessages(Cog):
                                       message_id: str = SlashOption(name="meddelande", description="Det meddelande som du vill skicka")):
         logger.info("Got a request to send a help/informational message!")
         #Validate permissions
-        if await ensure_admin_permissions(self.bot, interaction.user, interaction.guild, interaction): return #Exit the function if the user isn't an admin
+        if not await ensure_admin_permissions(self.bot, interaction.user, interaction.guild, interaction): return #Exit the function if the user isn't an admin
         #Get predefined message
         predefined_message = get_predefined_message(message_id)
         logger.info("Predefined message retrieved. Converting into embeddable...")
