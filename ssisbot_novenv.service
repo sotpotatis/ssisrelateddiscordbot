@@ -1,0 +1,8 @@
+[Unit]
+Description=Runs the SSIS Bot Discord Bot without performing the startup task of activating a virtual environment.
+
+[Service]
+ExecStart=python3 $SSIS_BOT_WORKING_DIRECTORY/main.py
+
+[Install]
+WantedBy=multi-user.target

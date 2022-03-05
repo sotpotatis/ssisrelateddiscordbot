@@ -147,7 +147,7 @@ async def ensure_admin_permissions(bot, user, guild, interaction_or_ctx=None):
     admin_role = roles["administrator_role_id"]
     moderator_role = roles["moderator_role_id"]
     #Check if the user is either a moderator or administrator
-    if any([await nextcord.utils.get(guild.roles, id=role_id) for role_id in [admin_role, moderator_role]]):
+    if any([nextcord.utils.get(guild.roles, id=role_id) for role_id in [admin_role, moderator_role]]):
         logger.debug("User is admin or moderator!")
         #Return True
         return True
