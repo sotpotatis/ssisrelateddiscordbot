@@ -100,7 +100,7 @@ class Pentry(Cog):
                                         value=pentry_field_text,
                                         inline=False)
             final_message.add_field(
-                name="Glöm inte!",
+                name="❤ Glöm inte!",
                 value="Glöm inte pentryansvaret, så vi slipper högar med koppar och disk i pentryt. Tack!",
                 inline=False
             )
