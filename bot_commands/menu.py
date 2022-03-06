@@ -87,7 +87,7 @@ class Menu(Cog):
                 color=MENU_EMBED_COLOR,
                 url="https://20alse.ssis.nu/lunch"
             )
-            final_message.set_footer(text=f"Drivs av 20alse Eatery Lunch API | Meddelande uppdaterat {get_now().strftime('%Y-%m-%d %H:%M')}")
+        final_message.set_footer(text=f"Drivs av 20alse Eatery Lunch API | Meddelande uppdaterat {get_now().strftime('%Y-%m-%d %H:%M')}")
         #Attempt to edit previous message - if fails, send new message
         logger.info("Trying to edit previous message...")
         #Retrieve channel where menu information messages should be sent to
