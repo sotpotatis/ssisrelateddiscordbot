@@ -23,11 +23,23 @@ def write_menu_data(new_menu_data):
     logger.info("Updating menu data...")
     write_json(MENU_DATA_PATH, new_menu_data)
 
-async def get_eatery_menu():
-    '''Asyncronous function to get Eatery menu data. Returns the menu data as a dictionary.'''
+async def get_eatery_menu(menu_id=None, week=None):
+    '''Asyncronous function to get Eatery menu data. Returns the menu data as a dictionary.
+
+    :param menu_id: The menu ID to get. Hint: Eatery Kista Nod is 521.
+
+    :param week: The week number to get the menu from.
+
+    :returns: Menu data as a dictionary if found, None ifthe request failed.'''
     logger.info("Getting Eatery menu...")
     async with aiohttp.ClientSession() as session:
-        async with session.get("https://lunchmeny.albins.website/api/") as request:
+        if menu_id != None and week != None:
+            logger.info(f"Week and menu ID specified for menu request. Requesting menu {menu_id} for week {week}")
+            url = f"https://lunchmeny.albins.website/api/{menu_id}/{week}" #Get menu data for a custom week.
+        else:
+            logger.info("Week and menu ID not specified for menu. Requesting latest available menu...")
+            url = "https://lunchmeny.albins.website/api/" #Get menu data for this week
+        async with session.get(url) as request:
             logger.info("Retrieval request finished,")
             if request.status == 200:
                 logger.debug("Request finished with status code 200. Getting menu data...")

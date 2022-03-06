@@ -53,7 +53,10 @@ class Menu(Cog):
         logger.info("Waiting until bot is ready to update menu message...")
         await self.bot.wait_until_ready()  #Wait until the bot is ready
         logger.info("Bot is ready to update menu message...")
-        menu_data = await get_eatery_menu()
+        now = get_now()
+        current_week = now.isocalendar()[1]
+        search_week = current_week if now.isoweekday() < 6 else current_week +1 #On weekends, try to search for data for the next week instead
+        menu_data = await get_eatery_menu(menu_id=521, week=search_week)
         logger.debug(f"Menu data: {menu_data}.")
         saved_menu_data = get_menu_data()
         current_menu_data = get_menu_data()["cached_menu"]
@@ -108,12 +111,12 @@ class Menu(Cog):
         logger.info(f"It is {current_day_name} today. Checking for meny data...")
         final_day_message = Embed(
             title=f"🍽 Mat för idag ({get_now().strftime('%d/%m-%Y')})",
-            description="Här hittar du maten för idag. Om meddelandet inte har uppdaterats, kolla efter nya meddelanden eller kolla ovan.",
+            description="Här hittar du maten för idag. Om meddelandet inte har uppdaterats, kolla efter nya meddelanden eller kolla ovanför detta meddelande.",
             color=MENU_EMBED_COLOR,
             url="https://20alse.ssis.nu/lunch"
         )
         final_day_message.set_footer(text=f"Drivs av 20alse Eatery Lunch API | Meddelande uppdaterat {get_now().strftime('%Y-%m-%d %H:%M')}.") #Add informational footer about latest update
-        if menu_data != None and current_day_name in menu_data["days"]:
+        if menu_data != None and current_day_name in menu_data["days"] and search_week == current_week: #Check if menu data for the current day is available
             logger.info("Menu data for day is available.")
             today = menu_data["days"][current_day_name] #Get data for today
             final_day_message.add_field(name="Idag", value=self.get_dish_text_for(today["dishes"], today))
