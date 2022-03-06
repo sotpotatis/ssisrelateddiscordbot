@@ -45,10 +45,10 @@ class Menu(Cog):
             day_dishes_text += dish_text + "\n"
         return day_dishes_text
 
-    @tasks.loop(hours=24)
+    @tasks.loop(hours=1)
     async def update_menu_message(self, *args, **kwargs):
         '''Updates the menu message if it should be updated.
-
+        Since I maintain this server, I think a request per hour is totally reasonable.
         TODO: Make this command callable by admins if needed'''
         logger.info("Waiting until bot is ready to update menu message...")
         await self.bot.wait_until_ready()  #Wait until the bot is ready

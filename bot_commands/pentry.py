@@ -21,10 +21,12 @@ class Pentry(Cog):
         '''Runs when the cog is unloaded.'''
         self.pentryansvar_task_loop.cancel() #Cancel task on cog unload
 
-    @tasks.loop(hours=24)
+    @tasks.loop(hours=1)
     async def pentryansvar_task_loop(self):
         '''The pentryansvar task loop checks if information about pentryansvar has been sent for the current week, or if the data has changed.
-        If not, it will try to fix that by downloading information.'''
+        If not, it will try to fix that by downloading information.
+        Since I maintain this server, I think a request per hour is totally reasonable.
+        TODO: Make this command callable by admins if needed'''
         logger.info("Checking for pentryansvar information...")
         logger.info("Waiting until bot is ready...")
         await self.bot.wait_until_ready()
