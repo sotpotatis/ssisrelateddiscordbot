@@ -56,7 +56,7 @@ class Menu(Cog):
         now = get_now()
         current_week = now.isocalendar()[1]
         search_week = current_week if now.isoweekday() < 6 else current_week +1 #On weekends, try to search for data for the next week instead
-        menu_data = await get_eatery_menu(menu_id=521, week=search_week)
+        menu_data = await get_eatery_menu(menu_id=DEFAULT_EATERY_MENU_ID, week=search_week)
         logger.debug(f"Menu data: {menu_data}.")
         saved_menu_data = get_menu_data()
         current_menu_data = get_menu_data()["cached_menu"]
