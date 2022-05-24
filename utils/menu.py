@@ -25,7 +25,7 @@ def write_menu_data(new_menu_data):
     write_json(MENU_DATA_PATH, new_menu_data)
 
 async def get_eatery_menu(menu_id=None, week=None):
-    '''Asyncronous function to get Eatery menu data. Returns the menu data as a dictionary.
+    '''Asynchronous function to get Eatery menu data. Returns the menu data as a dictionary.
 
     :param menu_id: The menu ID to get. Hint: Eatery Kista Nod is 521.
 
