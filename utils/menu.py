@@ -10,7 +10,7 @@ import os, logging
 logger = logging.getLogger(__name__)
 
 MENU_DATA_PATH = os.path.join(DATA_DIRECTORY, "menu.json")
-DEFAULT_EATERY_MENU_ID = 2401 #The default menu ID that Eatery Kista Nod uses for their menues. You can change the used ID in the code by changing this.
+DEFAULT_EATERY_MENU_ID = "kista-nod" #The default menu ID that Eatery Kista Nod uses for their menues (will be dynamically updated though). You can change the used ID in the code by changing this.
 def get_menu_data():
     '''Function to get menu data.
 
