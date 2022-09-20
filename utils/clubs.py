@@ -71,7 +71,7 @@ def add_subscriber_to_club(club_id, user):
     if not is_subscriber_to_club(club_data, user): #Add subscriber
         club_data["subscribers"].append(
             {
-                "user_id": user,
+                "user_id": user.id,
                 "added_at": str(get_now())
             }
         )
