@@ -81,7 +81,7 @@ class Clubs(commands.Cog):
             role = interaction.guild.get_role(club_data["role_id"])
             if role in interaction.user.roles:
                 await interaction.user.remove_roles(role)
-            remove_subscriber_from_club(club_id, user_id)
+            remove_subscriber_from_club(club_id, interaction.user)
         #Send confirmation message
         final_embed = Embed(
             title="✅ Avprenumererad",

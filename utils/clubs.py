@@ -82,18 +82,18 @@ def add_subscriber_to_club(club_id, user):
     clubs_data["clubs"][club_index] = club_data
     write_clubs_data(clubs_data)
 
-def remove_subscriber_from_club(club_id, user_id):
+def remove_subscriber_from_club(club_id, user):
     '''Function for adding a subscriber to a club.
 
     :param club_id: The club ID to remove the subscriber from
 
-    :param user_id: The user ID to add to the club.
+    :param user: The user ID to add to the club.
     '''
     logger.info("Removing user from club...")
     club_data, club_index = get_club_by_id(club_id, return_index=True)
-    if is_subscriber_to_club(club_data, user_id):
+    if is_subscriber_to_club(club_data, user):
         #Find the subscriber
-        subscriber_index = get_club_subscribers(club_data).index(user_id)
+        subscriber_index = get_club_subscribers(club_data).index(user.id)
         club_data["subscribers"].pop(subscriber_index)
         logger.debug("Change done in memory.")
     else:
