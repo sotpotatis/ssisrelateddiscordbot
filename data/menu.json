@@ -1,7 +1,7 @@
 {
  "cached_menu": {
-  "title": "Lunch v.9 Eatery Kista Nod",
-  "week_number": null,
+  "title": "Lunch v.17 Eatery Kista Nod",
+  "week_number": 17,
   "days": {
    "monday": {
     "day_name": {
@@ -9,9 +9,9 @@
      "english": "Monday"
     },
     "dishes": [
-     "Ryggbiff med gr\u00f6npeppars\u00e5s och rostad potatis",
-     "Kr\u00e4ftstj\u00e4rtfylld r\u00f6dsp\u00e4ttafil\u00e9 med potatispur\u00e9",
-     "Enchiladas med b\u00f6ndipp"
+     "K\u00f6ttf\u00e4rslimpa med gr\u00e4dds\u00e5s, lingonsylt, inlagd gurka och kokt potatis",
+     "Pankopanerad torskfil\u00e9 med remoulads\u00e5s och kokt potatis",
+     "Vegetarisk lasagne"
     ],
     "special_features": {
      "sweet_tuesday": false,
@@ -26,9 +26,9 @@
      "english": "Tuesday"
     },
     "dishes": [
-     "Ost- & skinkfylld panerad schnitzel med rostad potatis & tartars\u00e5s",
-     "Sotad laxfil\u00e9 med dillslungad potatis",
-     "Gr\u00f6nsaksbiff med bakad paprika & rosmarincr\u00e8me",
+     "Kebab i het tomats\u00e5s, vitl\u00f6kss\u00e5s med pitabr\u00f6d och ris",
+     "Pasta med gr\u00e4ddig vitvinss\u00e5s, kr\u00e4ftstj\u00e4rtar och crunch",
+     "Gr\u00f6nsakssoppa med makaroner, \u00f6rtkrutonger och Gruy\u00e8re",
      "Sweet Tuesday \u2013\u00a0Vi bjuder p\u00e5 n\u00e5got s\u00f6tt till maten!"
     ],
     "special_features": {
@@ -44,9 +44,9 @@
      "english": "Wednesday"
     },
     "dishes": [
-     "Pannbiff med gr\u00f6na \u00e4rtor, skirat sm\u00f6r och potatispur\u00e9",
-     "Ugnsbakad torskrygg med pepparrotss\u00e5s och kokt potatis",
-     "Ost- och champinjonfyllda panerade pannkakor"
+     "Pyttipanna med inlagda r\u00f6dbetor",
+     "Thai-r\u00e4kor i kokos- och jordn\u00f6tss\u00e5s med jasminris",
+     "K\u00e5lpudding med gr\u00e4dds\u00e5s, lingon, saltgurka och kokt potatis"
     ],
     "special_features": {
      "sweet_tuesday": false,
@@ -61,9 +61,9 @@
      "english": "Thursday"
     },
     "dishes": [
-     "Pytt i panna deluxe med fl\u00e4skytterfil\u00e9, stekt \u00e4gg och r\u00f6dbetor",
-     "L\u00e5gtempererad lax med citrons\u00e5s och blomk\u00e5lspur\u00e9",
-     "Kr\u00e4mig tomatsoppa med krutonger och \u00f6rtolja",
+     "Spaghetti Carbonara med r\u00f6kt kalkon",
+     "Torskrygg med hetta och gult mos",
+     "Vegetarisk currygryta med kokosmj\u00f6lk",
      "Pancake Thursday \u2013\u00a0Vi bjuder p\u00e5 pannkakor med hemgjord sylt och gr\u00e4dde efter maten!"
     ],
     "special_features": {
@@ -79,10 +79,9 @@
      "english": "Friday"
     },
     "dishes": [
-     "Chicken Kiev med rostad potatis",
-     "F\u00e4nk\u00e5lsbakad fisk med potatismos och dillcr\u00e8me",
-     "Zucchinib\u00e5tar fylld med gr\u00f6nsaker serveras med stekt potatis och \u00f6rtcr\u00e8me",
-     "\u00a0"
+     "Tacos med picco de gallo, guacamole och klassiska tillbeh\u00f6r",
+     "Linguine ala frutti di mare",
+     "Vegotacos med kesoburritos och tillbeh\u00f6r"
     ],
     "special_features": {
      "sweet_tuesday": false,
@@ -94,7 +93,7 @@
   },
   "footer": "Allergisk? Fr\u00e5ga oss!\nLunch 99kr. med Eaterykortet (ordinarie pris 110kr.) Serveras mellan 10.30 och 14.00\nBr\u00f6d, sallad, mineralvatten och kaffe/te ing\u00e5r"
  },
- "menu_cached_at": "2022-03-05 20:06:03.838829+01:00",
+ "menu_cached_at": "2022-08-21 20:33:37.412332+02:00",
  "menu_information_message_ids": {
   "day": 944335105596469328,
   "week": 944335103658704936

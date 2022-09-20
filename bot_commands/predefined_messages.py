@@ -3,7 +3,7 @@ The predefined messages are some informational messages about various functions 
 To avoid spam, only admins can query this.
 '''
 import nextcord, logging
-from nextcord.ext.commands import Cog, has_permissions
+from nextcord.ext.commands import Cog, has_permissions, is_owner
 from nextcord import Interaction, SlashOption, Embed
 from utils.predefined_messages import *
 from utils.general import ensure_admin_permissions
@@ -14,6 +14,7 @@ class PredefinedMessages(Cog):
         self.bot = bot
 
     @nextcord.slash_command(description="Skickar ett hjälp/-infomeddelande till en kanal om någon av bottens funktioner.")
+    @is_owner()
     async def send_help_message(self, interaction: Interaction,
                                       message_id: str = SlashOption(name="meddelande", description="Det meddelande som du vill skicka")):
         logger.info("Got a request to send a help/informational message!")

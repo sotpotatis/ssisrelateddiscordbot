@@ -33,7 +33,32 @@ class Pentry(Cog):
         logger.info("Bot is ready.")
         #Don't perform the check on weekends
         if get_now().isoweekday() <= 7:
-            pentryansvar_data = await get_pentryansvar()
+            pentryansvar_data =   [
+                {
+                    "pentry_name": "Pentry 2",
+                    "pentry_number": "2",
+                    "responsible_class": "Te19B",
+                    "responsible_persons": [
+                        "Jacob",
+                        "Frank",
+                        "Fabian",
+                        "Mattias",
+                        "Gabriel och August"
+                    ]
+                },
+                {
+                    "pentry_name": "Pentry 1",
+                    "pentry_number": "1",
+                    "responsible_class": "Te19A",
+                    "responsible_persons": [
+                        "Yasmin",
+                        "Daniel",
+                        "Anna",
+                        "Sebastian",
+                        "Arseniy och Jakob"
+                    ]
+                }
+            ]
             cached_pentryansvar_data = get_pentryansvar_data() #This is some data that we have saved about the previous message
             if pentryansvar_data == None:
                 logger.warning("Pentryansvar data is not available. Check will be skipped.")
@@ -85,8 +110,9 @@ class Pentry(Cog):
                     responsible_class = responsible_class.mention
                 responsible_persons = ""
                 for person_name in pentry["responsible_persons"]:
-                    person_tag = await find_person_tag(self.bot, guild, person_name,  pentry['responsible_class'])
-                    responsible_persons += "%s "%(person_tag.mention if person_tag != None else person_name + ",")
+                    person_tag = None #await find_person_tag(self.bot, guild, person_name,  pentry['responsible_class'])
+                    responsible_persons += " %s"%(person_tag.mention if person_tag != None else person_name + ",")
+                responsible_persons = responsible_persons.strip(",") #Strip last comma and space
                 logger.info("Text for responsible persons generated.")
                 responsible_persons = responsible_persons.strip(",") #Remove trailing commans
                 pentry_field_text = f"📣 **{'Ansvarig klass' if responsible_class != 'Personal' else 'Ansvariga'}**: {responsible_class}" #Create text for responsible persons. Handle a scenario where the school staff ("Personal") has pentryansvar.

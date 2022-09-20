@@ -4,7 +4,7 @@ Provides utilities related to various functions in the bot
 import asyncio
 import json, os, logging, datetime, pytz, nextcord.utils
 from utils.color_const import ERROR_EMBED_COLOR
-from nextcord import Embed
+from nextcord import Embed, Activity, ActivityType
 
 #Logging
 logger = logging.getLogger(__name__)
@@ -17,11 +17,28 @@ MENU_SUBSCRIPTIONS_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "menu_subscripti
 ADMINISTRATORS_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "admins.json") #File for storing admins that have permission to use the bot
 PENTRYANSVAR_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "pentryansvar.json") #File for storing pentryansvar data
 ROLE_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "roles.json") #File for storing roles data
+CACHED_SCHEDULE_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "cached_schedules.json") #File for storing cached schedules
+SUBSCRIPTIONS_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "subscribed_schedules.json") #File for storing schedule subscriptions
+SUBSCRIPTIONS_SCHEMA_FILEPATH = os.path.join(DATA_DIRECTORY, "available_subscriptions.json") #File for defining available subscriptions
+GOOD_MORNING_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "good_morning.json") #Data regarding the good morning message
+GOOD_MORNING_GREETINGS_FILEPATH = os.path.join(DATA_DIRECTORY, "good_morning_greetings.txt") #Good morning messages around the world
+GOOD_MORNING_RESPONSES_FILEPATH = os.path.join(DATA_DIRECTORY, "good_morning_responses.txt") #Responses to when people say "good morning"
 LOGGING_DIRECTORY = os.path.join(BOT_DIRECTORY, "../logging")
 LOGGING_HANDLER_FILEPATH = os.path.join(LOGGING_DIRECTORY, "log.log")
 #Other constants
 BASE_TIMEZONE = "Europe/Stockholm" #Base timezone for the bot
-
+BOT_GENERAL_STATUSES = [{"type": ActivityType.listening, "text": "davids serverdatorer som spinner..."},
+                        {"type": ActivityType.playing, "text": "schack med några treor"},
+                        {"type": ActivityType.listening, "text": "kaffemaskinen"},
+                        {"type": ActivityType.watching, "text": "3D-skrivarna i Dalek"},
+                        {"type": ActivityType.watching, "text": "ettor och nollor"},
+                        {"type": ActivityType.listening, "text": "fåglar som kvittrar"},
+                        {"type": ActivityType.watching, "text": "alla dessa människor på discord!"},
+                        {"type": ActivityType.playing, "text": "https://github.com/sotpotatis/ssisrelateddiscordbot"},
+                        {"type": ActivityType.listening, "text": "fördelarna med att använda Obsidian för sina anteckningar"},
+                        {"type": ActivityType.listening, "text": "grytor & kastruller som slamrar nere i Eatery"}
+                        ]
+MAIN_SERVER_ID = 746412815048376371 #Server to retrieve members from. The bot is intended to be used on one single server.
 #JSON-related functions
 def get_json(filepath):
     '''Retrieves JSON from a certain filepath.'''
@@ -39,6 +56,12 @@ def get_now():
     the Swedish timezone (but you can change it above if you'd like to!))'''
     return datetime.datetime.now(tz=pytz.timezone(BASE_TIMEZONE))
 
+def get_current_day_name():
+    '''Gets the current day name and returns it'''
+    current_day_number = get_now().isoweekday()
+    day_mappings = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    current_day_name = day_mappings[current_day_number - 1]
+    return current_day_name
 #Embeds
 def generate_error_embed(title="Sorry! Ett fel inträffade", description="Pinsamt va? Hehe. Jag ber om ursäkt! Peace out! Testa igen senare, eller nåt.", *args, **kwargs):
     '''Shortcut function for generating an embed message that can be sent when an error has occurred.'''
@@ -125,6 +148,21 @@ async def find_person_tag(bot, guild, wanted_person_name, class_name):
     logger.debug(f"Found person: {person}")
     logger.info("Finished searching for person.")
     return person
+
+def get_active_classes():
+    '''Gets the classes that are active in the school, aka. the classes that have active education currently
+    and have not graduated. For example, for 2022-01, this would be TE[19-21][A-D] and for 2022-08, this would be
+    TE[20-22][A-D].'''
+    now = get_now()
+    #Create index of classes
+    class_number_start = now.year-3 if now.month < 8 else now.year-2
+    class_number_end = now.year-1 if now.month < 8 else now.year
+    classes = []
+    for class_year in range(class_number_start, class_number_end):
+        for class_letter in ["A", "B", "C", "D"]:
+            classes.append(f"TE{class_year[-2:]}{class_letter}")
+    return classes
+
 
 def get_roles():
     '''Returns the role file which contains static information about various roles on the server.'''

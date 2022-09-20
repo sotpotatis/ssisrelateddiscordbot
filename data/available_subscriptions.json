@@ -1,0 +1,8 @@
+{
+  "schema": {
+    "subcategories": ["te20a", "te20b", "te20c", "te20d"]
+  },
+  "food": {
+    "subcategories": ["daily", "weekly"]
+  }
+}

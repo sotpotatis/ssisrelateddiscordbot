@@ -1,4 +1,6 @@
-# SSIS (Stockholm Science & Innovation School)-related Discord Bot
+# SSIS-related Discord Bot
+
+(SSIS=Stockholm Science & Innovation School)
 
 This Discord bot is has various capabilities related to the school Stockholm Science & Innovation School.
 
@@ -6,15 +8,22 @@ This Discord bot is has various capabilities related to the school Stockholm Sci
 
 #### Lunch menu information
 
+![Week menu message](screenshots/week_menu.png)
 * The bot can retrieve lunch menu information and edit a message it has created with a lunch menu message on a given time each day. 
 
 * The bot can send PM's with the lunch menu to users who has subscribed to it. (*this is on the wishlist*)
 
 #### School pentry responsibilities ("Pentryansvar")
 
+![Pentryansvar message](screenshots/pentry.png)
+
 * The bot can send a message to a given channel every week with who has "Pentryansvar" in the school.
+For curious outsiders, this is who are responsible for keeping the dishwashers running in the shared school
+pentrys.
 
 #### School club management system
+
+![Clubs](screenshots/clubs.png)
 
 * The bot can manage roles for school clubs (both owners and non-owners).
 * The bot can handle subscriptions for people who want to subscribe to school club channels.
@@ -23,14 +32,22 @@ This Discord bot is has various capabilities related to the school Stockholm Sci
 
 * Administrators can manage some features of the bot, like adding new clubs.
 
-> Note that all commands except administrative commands are made using slash commands. Administrative commands are called using text commands
+> Note that all commands except administrative commands are made using slash commands. Administrative commands are called using text commands.
 
 #### Tech stack
-* Using nextcord, a fork of discord.py (which nowadays has been discontinued)
+
+* Using nextcord, a fork of discord.py. I started using this because it supported slash commands and because discord.py got discontinued,
+but it has since then been reborn. Once it gets stable slash command support, this project should switch over to it as soon as possible.
 
 ### Setup
 
-> Note: this section has to be improved with more details.
  
 * Run `setup_script.sh`
-* Edit the configurations files as needed in `data/`
+* Edit the configurations files as needed in `data/`:
+  * Edit `clubs.json` to add information about clubs
+  * Edit `predefined_message.json` to change any of the predefined messages
+  * Edit `roles.json` to change the IDs for admin roles.
+* If desired, you can set up some tracking so you get notifications in case the bot goes down.
+If so, set the environment variable `HEALTHCHECKS_PING_URL` to a URL you get when creating a [Healthchecks](https://healthchecks.io)
+check. The default ping frequency is every two minutes, but you can change it if you wish by setting the environment variable `HEALTHCHECKS_PING_FREQ`
+environment variable. This value is in minutes.

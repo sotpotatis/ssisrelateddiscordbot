@@ -3,9 +3,9 @@ Function that contains some general bot tasks, such as changing its status.
 '''
 from nextcord.ext.commands import Cog
 from nextcord.ext import tasks, commands
-from nextcord import Status,  ActivityType, Activity, Embed
-import logging, aiohttp, os
-from utils.general import generate_error_embed
+from nextcord import Status, Embed, Activity
+import logging, aiohttp, os, random
+from utils.general import generate_error_embed, get_now, BOT_GENERAL_STATUSES
 
 logger = logging.getLogger(__name__)
 
@@ -40,11 +40,6 @@ class General(Cog):
     async def on_ready(self):
         '''Handler for when the bot becomes ready.'''
         logger.info("Bot is ready!")
-        #Set status
-        logger.info("Setting bot status...")
-        activity = Activity(type=ActivityType.playing, name="SSIS Bot | Lyssnar på kommandon!")
-        await self.bot.change_presence(status=Status.online, activity=activity)
-        logger.info("Bot status set.")
 
     @tasks.loop(minutes=HEALTHCHECKS_PING_FREQ)
     async def report_ping_to_healthchecks(self):
@@ -60,6 +55,31 @@ class General(Cog):
                     logger.info("Ping to Healthchecks was successful.")
                 else:
                     logger.warning("Ping to Healthchecks failed!")
+
+    @tasks.loop(minutes=3)
+    async def change_status(self):
+        '''Changes the bot status. The status will be changed to something related to current lessons
+        if there is a schedule available. If not, it will be changed to something else.'''
+        logger.info("Changing status...")
+        now = get_now()
+        #Check if schedules are available
+        schedule = None
+        if now.hour < 9 or now.hour > 17: #No lessons - set general status
+            general_status = True
+        else:
+            general_status = True if schedule == None else False
+
+        if general_status:
+            logger.info("Using a general status.")
+            status = random.choice(BOT_GENERAL_STATUSES)
+            activity = Activity(type=status["type"], name=status["text"])
+            logger.info(f"New status: {status}. Changing...")
+            await self.bot.change_presence(status=Status.online, activity=activity)
+            logger.info("Bot status set.")
+        else:
+            logger.info("Using informational status.")
+            # TODO: Implement
+
 
     @commands.command(name="eval")
     @commands.is_owner() #Make this only callable by owner
