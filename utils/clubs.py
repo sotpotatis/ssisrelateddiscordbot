@@ -51,13 +51,13 @@ def get_club_subscribers(club_data):
     '''
     return [subscriber["user_id"] for subscriber in club_data["subscribers"]]
 
-def is_subscriber_to_club(club_data, user_id):
+def is_subscriber_to_club(club_data, user):
     '''Function to check if a user is subscribing to a club or not.
 
     :param club_data: The data for the club as a dictionary.
 
-    :param user_id: The user ID that you want to check if it is subscribing.'''
-    return True if user_id in get_club_subscribers(club_data) else False
+    :param user: The user that you want to check if it is subscribing.'''
+    return True if user.id in get_club_subscribers(club_data) or club_data["role_id"] in user.roles else False
 
 def add_subscriber_to_club(club_id, user_id):
     '''Function for adding a subscriber to a club.

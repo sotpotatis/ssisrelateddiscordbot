@@ -69,9 +69,9 @@ class Clubs(commands.Cog):
         #Check if the user is subscribed
         club_data = get_club_by_id(club_id)
         user_id = interaction.user.id
-        if not is_subscriber_to_club(club_data, interaction.user.id):
+        if not is_subscriber_to_club(club_data, interaction.user):
             logger.info("The user is not a subscriber to the club!")
-            message = await interaction.response.send_message(embed=generate_error_embed(
+            await interaction.response.send_message(embed=generate_error_embed(
                 title="Du prenumererar inte",
                 description="Du har inte signat upp för notiser till klubben, så jag kan inte avprenumerera dig.",
             ), delete_after=60)

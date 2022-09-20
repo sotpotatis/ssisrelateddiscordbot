@@ -16,4 +16,4 @@ if [[ -z "${HEALTHCHECKS_PING_FREQ}" ]];then
   HEALTHCHECKS_PING_FREQ=2 #Ping frequency in minutes
 fi
 echo "Running bot..."
-python3 SSIS_BOT_WORKING_DIRECTORY
+python3 "$SSIS_BOT_WORKING_DIRECTORY/main.py"
