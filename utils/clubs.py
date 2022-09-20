@@ -91,9 +91,10 @@ def remove_subscriber_from_club(club_id, user):
     '''
     logger.info("Removing user from club...")
     club_data, club_index = get_club_by_id(club_id, return_index=True)
-    if is_subscriber_to_club(club_data, user):
+    club_subscribers = get_club_subscribers(club_data)
+    if is_subscriber_to_club(club_data, user) and user.id in club_subscribers:
         #Find the subscriber
-        subscriber_index = get_club_subscribers(club_data).index(user.id)
+        subscriber_index = club_subscribers.index(user.id)
         club_data["subscribers"].pop(subscriber_index)
         logger.debug("Change done in memory.")
     else:
