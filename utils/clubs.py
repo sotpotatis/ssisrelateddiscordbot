@@ -98,7 +98,7 @@ def remove_subscriber_from_club(club_id, user):
         club_data["subscribers"].pop(subscriber_index)
         logger.debug("Change done in memory.")
     else:
-        logger.info("User is not subscribed to the club.")
+        logger.info("User is not subscribed to the club (at least not in JSON).")
     #Update club data
     clubs_data = get_clubs_data()
     clubs_data["clubs"][club_index] = club_data
