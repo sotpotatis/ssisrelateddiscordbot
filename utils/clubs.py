@@ -60,18 +60,18 @@ def is_subscriber_to_club(club_data, user):
     logger.debug(f"Checking subscription for {user.mention} with roles {user.roles}. Club role ID is {club_data['role_id']}")
     return user.id in get_club_subscribers(club_data) or club_data["role_id"] in user.roles
 
-def add_subscriber_to_club(club_id, user_id):
+def add_subscriber_to_club(club_id, user):
     '''Function for adding a subscriber to a club.
 
     :param club_id: The club ID to add the subscriber to
 
-    :param user_id: The user ID to add to the club.
+    :param user: The user ID to add to the club.
     '''
     club_data, club_index = get_club_by_id(club_id, return_index=True)
-    if not is_subscriber_to_club(club_data, user_id): #Add subscriber
+    if not is_subscriber_to_club(club_data, user): #Add subscriber
         club_data["subscribers"].append(
             {
-                "user_id": user_id,
+                "user_id": user,
                 "added_at": str(get_now())
             }
         )

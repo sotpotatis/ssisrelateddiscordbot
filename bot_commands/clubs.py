@@ -29,17 +29,16 @@ class Clubs(commands.Cog):
                                                        #choices=club_name_options)
                                 ):
         logger.info("Got a request to subscribe to a club!")
-        user_id = interaction.user.id #Get user ID
         #Get club
         found_club = get_club_by_id(club_id)
         #Add user as a subscriber if not already subscribed
-        if not is_subscriber_to_club(found_club, user_id):
+        if not is_subscriber_to_club(found_club, interaction.user):
             logger.info("Adding user as subscriber...")
             #Grant role to user
             role = interaction.guild.get_role(found_club["role_id"])
             if role not in interaction.user.roles:
                 await interaction.user.add_roles(role)
-            add_subscriber_to_club(club_id, user_id)
+            add_subscriber_to_club(club_id, interaction.user)
         logger.info("Addition done. Sending message...")
         final_embed = Embed(
             title="✅ Du lades till!",
