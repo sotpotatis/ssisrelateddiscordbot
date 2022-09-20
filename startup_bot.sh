@@ -1,5 +1,5 @@
 #startup_bot.sh
-#Script that can be used to quickly startup the bot
+#Script that can be used to quickly startup the bot when using virtual environments
 echo "Starting up SSIS Bot..."
 echo "Activating virtual environment..."
 echo "Starting bot..."
