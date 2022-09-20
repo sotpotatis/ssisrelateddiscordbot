@@ -57,6 +57,7 @@ def is_subscriber_to_club(club_data, user):
     :param club_data: The data for the club as a dictionary.
 
     :param user: The user that you want to check if it is subscribing.'''
+    logger.debug(f"Checking subscription for {user.mention} with roles {user.roles}. Club role ID is {club_data['role_id']}")
     return user.id in get_club_subscribers(club_data) or club_data["role_id"] in user.roles
 
 def add_subscriber_to_club(club_id, user_id):
