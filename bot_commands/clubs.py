@@ -187,7 +187,7 @@ class Clubs(commands.Cog):
         #Get club
         club_data, club_index = get_club_by_id(club_id, return_index=True)
         #Validate that the club exists
-        if club_data == None:
+        if club_data is None:
             logger.debug("The club does not exist. Returning error...")
             await ctx.send(embed=generate_error_embed(
                 "Klubben du försöker lägga till en användare",
