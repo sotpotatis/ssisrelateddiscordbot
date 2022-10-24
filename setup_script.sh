@@ -28,5 +28,5 @@ echo "export SSIS_BOT_WORKING_DIRECTORY=$(pwd)" >> ~/.bashrc
 chmod +x "startup_bot.sh" #Change permissions of bot startup script
 #Reload session
 . ~/.bashrc
-echo "BashRC reloaded."
+echo "Bashrc reloaded."
 echo "Done! You should be good to go after editing some files in data/, and adding possible Healthchecks credentials if you wish.."

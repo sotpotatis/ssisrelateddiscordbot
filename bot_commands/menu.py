@@ -23,7 +23,7 @@ class Menu(Cog):
 
     def cog_unload(self):
         '''Function that calls when the cog is unloaded.
-        Updates all the menu messages.'''
+        Cancels updating of all the menu messages.'''
         self.update_menu_message.cancel()
 
     def get_dish_text_for(self, dishes, day):
@@ -113,7 +113,7 @@ class Menu(Cog):
             await previous_week_message.edit(embed=final_message)
         except:
             logger.info("Failed to edit previous message. Sending a new one...")
-            week_message = await information_channel.send(embed=final_message)
+            week_message = await information_channel.send_message(embed=final_message)
             saved_menu_data["menu_information_message_ids"]["week"] = week_message.id
         #And there's also a "today" message. However, we don't want to spam the channel - if we can't send the message, we should just simply ignore it
         #Retrieve current day

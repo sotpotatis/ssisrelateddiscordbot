@@ -33,7 +33,9 @@ class GoodMorning(Cog):
             write_to_good_morning_file(good_morning_data)
             self.logger.info("Data were written to file.")
             await message.reply(response_string)
-        elif message_action == ACTION_REACT:
+            self.logger.info("Good morning message sent.")
+        if message_action is not None:
+            # React to good morning message
             self.logger.info("Reacting to a good morning message...")
             await message.add_reaction(GOOD_MORNING_REACTION_EMOJI)
-
+            self.logger.info("Message reacted to.")

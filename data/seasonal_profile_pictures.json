@@ -1,0 +1,8 @@
+{
+  "fallback": {"filename":  "standard_pfp.png"},
+  "seasonal": [{
+    "active_from":  "2022-10-21",
+    "active_to":  "2022-10-31T23:59:59",
+    "filename": "halloween.png"
+  }]
+}

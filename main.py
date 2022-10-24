@@ -3,7 +3,7 @@ Runs the bot.'''
 import logging, nextcord, os
 from logging.handlers import RotatingFileHandler
 from nextcord.ext import commands #Import command handler
-from bot_commands import clubs, predefined_messages, menu, general, pentry, message_subscriptions, schedules, good_morning #Import bot commands
+from bot_commands import clubs, predefined_messages, menu, general, pentry, message_subscriptions, schedules, good_morning, seasonal_profile_pictures #Import bot commands
 from utils.general import LOGGING_DIRECTORY, LOGGING_HANDLER_FILEPATH
 
 #Set up logging
@@ -36,9 +36,10 @@ cogs = [
     menu.Menu,
     general.General,
     pentry.Pentry,
-    message_subscriptions.SubscribedMessagesSubscription,
-    schedules.Schedules,
-    good_morning.GoodMorning
+    #message_subscriptions.SubscribedMessagesSubscription,
+    #schedules.Schedules,
+    good_morning.GoodMorning,
+    seasonal_profile_pictures.SeasonalProfilePictures
 ]
 i = 1
 for cog in cogs: #Add every cog
