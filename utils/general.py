@@ -1,10 +1,10 @@
-'''UTILITIES FUNCTIONS
+"""UTILITIES FUNCTIONS
 Provides utilities related to various functions in the bot
-'''
+"""
 import asyncio
 import json, os, logging, datetime, pytz, nextcord.utils
 from utils.color_const import ERROR_EMBED_COLOR
-from nextcord import Embed
+from nextcord import Embed, Activity, ActivityType
 
 #Logging
 logger = logging.getLogger(__name__)
@@ -17,31 +17,62 @@ MENU_SUBSCRIPTIONS_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "menu_subscripti
 ADMINISTRATORS_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "admins.json") #File for storing admins that have permission to use the bot
 PENTRYANSVAR_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "pentryansvar.json") #File for storing pentryansvar data
 ROLE_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "roles.json") #File for storing roles data
+CACHED_SCHEDULE_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "cached_schedules.json") #File for storing cached schedules
+SUBSCRIPTIONS_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "subscribed_schedules.json") #File for storing schedule subscriptions
+SUBSCRIPTIONS_SCHEMA_FILEPATH = os.path.join(DATA_DIRECTORY, "available_subscriptions.json") #File for defining available subscriptions
+GOOD_MORNING_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "good_morning.json") #Data regarding the good morning message
+GOOD_MORNING_GREETINGS_FILEPATH = os.path.join(DATA_DIRECTORY, "good_morning_greetings.txt") #Good morning messages around the world
+GOOD_MORNING_RESPONSES_FILEPATH = os.path.join(DATA_DIRECTORY, "good_morning_responses.txt") #Responses to when people say "good morning"
+BAD_GOOD_MORNING_STARTS = os.path.join(DATA_DIRECTORY, "bad_good_morning_starts.txt") #Bad beginning of the good morning detection, see good_morning.py
+SEASONAL_PROFILE_PICTURES_FILEPATH = os.path.join(DATA_DIRECTORY, "seasonal_profile_pictures.json") #Data for seasonal profile pictures
+SEASONAL_PROFILE_PICTURES_DIRECTORY = os.path.join(DATA_DIRECTORY, "seasonal_profile_pictures")
 LOGGING_DIRECTORY = os.path.join(BOT_DIRECTORY, "../logging")
 LOGGING_HANDLER_FILEPATH = os.path.join(LOGGING_DIRECTORY, "log.log")
 #Other constants
 BASE_TIMEZONE = "Europe/Stockholm" #Base timezone for the bot
-
+BOT_GENERAL_STATUSES = [{"type": ActivityType.listening, "text": "Davids serverdatorer som spinner..."},
+                        {"type": ActivityType.playing, "text": "schack med några treor"},
+                        {"type": ActivityType.playing, "text": "SSIS Bot | Lyssnar på kommandon"},
+                        {"type": ActivityType.listening, "text": "kaffemaskinen som gör kaffe"},
+                        {"type": ActivityType.watching, "text": "3D-skrivarna i Dalek"},
+                        {"type": ActivityType.watching, "text": "ettor och nollor"},
+                        {"type": ActivityType.listening, "text": "kommandon"},
+                        {"type": ActivityType.watching, "text": "alla dessa människor på Discord!"},
+                        {"type": ActivityType.playing, "text": "SSIS Bot | https://github.com/sotpotatis/ssisrelateddiscordbot"},
+                        {"type": ActivityType.listening, "text": "fördelarna med att använda Obsidian för sina anteckningar"},
+                        {"type": ActivityType.listening, "text": "grytor & kastruller som slamrar nere i Eatery"},
+                        {"type": ActivityType.watching, "text": "Davids robotarm som klappar Yoshi <3"},
+                        {"type": ActivityType.listening, "text": "Davids robotarm som klappar Yoshi <3"},
+                        {"type": ActivityType.listening, "text": "God morgon-meddelanden"},
+                        {"type": ActivityType.watching, "text": "vad för mat som serveras på Eatery idag"}
+                        ]
+MAIN_SERVER_ID = 746412815048376371 #Server to retrieve members from. The bot is intended to be used on one single server.
 #JSON-related functions
 def get_json(filepath):
-    '''Retrieves JSON from a certain filepath.'''
+    """Retrieves JSON from a certain filepath."""
     with open(filepath) as json_file:
         return json.loads(json_file.read())
 
 def write_json(filepath, new_json):
-    '''Writes JSON to a file at the provided filepath.'''
+    """Writes JSON to a file at the provided filepath."""
     with open(filepath, "w") as json_file:
         json_file.write(json.dumps(new_json, indent=True))
 
 #Time-related functions
 def get_now():
-    '''Returns the current time in a unviersal timezone (since this app will be deployed in Sweden, it's
-    the Swedish timezone (but you can change it above if you'd like to!))'''
+    """Returns the current time in a unviersal timezone (since this app will be deployed in Sweden, it's
+    the Swedish timezone (but you can change it above if you'd like to!))"""
     return datetime.datetime.now(tz=pytz.timezone(BASE_TIMEZONE))
 
+def get_current_day_name():
+    """Gets the current day name and returns it"""
+    current_day_number = get_now().isoweekday()
+    day_mappings = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+    current_day_name = day_mappings[current_day_number - 1]
+    return current_day_name
 #Embeds
 def generate_error_embed(title="Sorry! Ett fel inträffade", description="Pinsamt va? Hehe. Jag ber om ursäkt! Peace out! Testa igen senare, eller nåt.", *args, **kwargs):
-    '''Shortcut function for generating an embed message that can be sent when an error has occurred.'''
+    """Shortcut function for generating an embed message that can be sent when an error has occurred."""
     return Embed(
         *args,
         title=title,
@@ -52,13 +83,13 @@ def generate_error_embed(title="Sorry! Ett fel inträffade", description="Pinsam
 
 #Other
 async def class_name_to_role(bot, guild, class_name):
-    '''Tries to parse a class name to a role that maps for the corresponding class.
+    """Tries to parse a class name to a role that maps for the corresponding class.
 
     :param bot: The bot (nextcord.Commands) that is used when finding the role.
 
     :param class_name: The class name (e.g. "TE20A" that the bot should find roles for)
 
-    :param guild: The guild to search for roles in.'''
+    :param guild: The guild to search for roles in."""
     logger.info(f"Trying to find a role for {class_name}...")
     role = nextcord.utils.find(lambda x: x.name.upper() == class_name.upper(), guild.roles)
     logger.debug(f"Found class role: {role}.")
@@ -66,7 +97,7 @@ async def class_name_to_role(bot, guild, class_name):
     return role
 
 async def find_person_tag(bot, guild, wanted_person_name, class_name):
-    '''Tries to find an individual person (student) based on its name.
+    """Tries to find an individual person (student) based on its name.
 
      :param bot: The bot (nextcord.Commands) that is used when finding the role.
 
@@ -75,7 +106,7 @@ async def find_person_tag(bot, guild, wanted_person_name, class_name):
     :param class_name: The class name (e.g. "TE20A") that the person is in
 
     :param wanted_person_name: The name that the person has.
-    '''
+    """
     logger.info(f"Trying to find {wanted_person_name} in the server...")
     #Persons are found by first searching by class. Since otherwise, it's quite impossible to track a person unless they have a unique name
     class_role = await class_name_to_role(bot, guild, class_name)
@@ -97,7 +128,7 @@ async def find_person_tag(bot, guild, wanted_person_name, class_name):
         wanted_person_surname = None
 
     def person_name_filter(guild_member):
-        '''Filter used for finding a person name in the guild.'''
+        """Filter used for finding a person name in the guild."""
         guild_member_name = guild_member.name.capitalize() #Get the name and capitalize it
         #Remove class from guild member name (class names are added inside parantheses)
         if len(guild_member_name.split("(")) < 2:
@@ -126,12 +157,27 @@ async def find_person_tag(bot, guild, wanted_person_name, class_name):
     logger.info("Finished searching for person.")
     return person
 
+def get_active_classes():
+    """Gets the classes that are active in the school, aka. the classes that have active education currently
+    and have not graduated. For example, for 2022-01, this would be TE[19-21][A-D] and for 2022-08, this would be
+    TE[20-22][A-D]."""
+    now = get_now()
+    #Create index of classes
+    class_number_start = now.year-3 if now.month < 8 else now.year-2
+    class_number_end = now.year-1 if now.month < 8 else now.year
+    classes = []
+    for class_year in range(class_number_start, class_number_end):
+        for class_letter in ["A", "B", "C", "D"]:
+            classes.append(f"TE{class_year[-2:]}{class_letter}")
+    return classes
+
+
 def get_roles():
-    '''Returns the role file which contains static information about various roles on the server.'''
+    """Returns the role file which contains static information about various roles on the server."""
     return get_json(ROLE_DATA_FILEPATH)
 
 async def ensure_admin_permissions(bot, user, guild, interaction_or_ctx=None):
-    '''Function to ensure that a user calling the command has permissions to execute administrative commands on the bot.
+    """Function to ensure that a user calling the command has permissions to execute administrative commands on the bot.
     If not, an error message is automatically set.
 
     :param bot: The nextcord.commands bot to use.
@@ -140,7 +186,7 @@ async def ensure_admin_permissions(bot, user, guild, interaction_or_ctx=None):
 
     :param guild: The guild that is being used.
 
-    :returns True if the user is an admin, False if the user isn't.'''
+    :returns True if the user is an admin, False if the user isn't."""
     logger.debug(f"Checking permissions for user {user.mention}...")
     #Get the roles
     roles = get_roles()
@@ -171,3 +217,9 @@ async def ensure_admin_permissions(bot, user, guild, interaction_or_ctx=None):
             await error_message.delete()
             await original_message.delete()
             logger.info("Permission denying messages deleted.")
+
+
+def string_to_localized_datetime(input:str):
+    """Takes a string, converts it to a datetime and also ensures that that datetime
+    is in the current BASE_TIMEZONE."""
+    return datetime.datetime.fromisoformat(input).astimezone(pytz.timezone(BASE_TIMEZONE))

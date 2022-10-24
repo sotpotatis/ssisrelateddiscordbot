@@ -3,9 +3,9 @@ Function that contains some general bot tasks, such as changing its status.
 '''
 from nextcord.ext.commands import Cog
 from nextcord.ext import tasks, commands
-from nextcord import Status,  ActivityType, Activity, Embed
-import logging, aiohttp, os
-from utils.general import generate_error_embed
+from nextcord import Status, Embed, Activity
+import logging, aiohttp, os, random
+from utils.general import generate_error_embed, get_now, BOT_GENERAL_STATUSES
 
 logger = logging.getLogger(__name__)
 
@@ -31,20 +31,19 @@ class General(Cog):
             self.report_ping_to_healthchecks.start() #Start the task for Healthchecks
         else:
             logger.warning("A Healthchecks ping URL has not been specified. (You can ignore this message unless you intend to track the bot using Healthchecks)")
+        #self.change_status_new.start() # Start task for changing status - TODO implement
+        self.change_status.start() # Start task for changing status every once in a while
 
     def cog_unload(self):
         '''Runs when the cog is unloaded.'''
         self.report_ping_to_healthchecks.cancel() #Cancel task on cog unload.
+        #self.change_status_new.start() # Start task for changing status to something schedule related - TODO implement
+        self.change_status.cancel() # Cancel task for changing status every once in a while
 
     @Cog.listener()
     async def on_ready(self):
         '''Handler for when the bot becomes ready.'''
         logger.info("Bot is ready!")
-        #Set status
-        logger.info("Setting bot status...")
-        activity = Activity(type=ActivityType.playing, name="SSIS Bot | Lyssnar på kommandon!")
-        await self.bot.change_presence(status=Status.online, activity=activity)
-        logger.info("Bot status set.")
 
     @tasks.loop(minutes=HEALTHCHECKS_PING_FREQ)
     async def report_ping_to_healthchecks(self):
@@ -60,6 +59,46 @@ class General(Cog):
                     logger.info("Ping to Healthchecks was successful.")
                 else:
                     logger.warning("Ping to Healthchecks failed!")
+
+    @tasks.loop(hours=1)
+    async def change_status(self):
+        """Changes status of the bot at most every 2 hours"""
+        logger.info("Checking for status change...")
+        await self.bot.wait_until_ready()
+        if random.randint(1,2) == 1 or self.bot.activity is None:
+            logger.info("Status of bot should be changed. Generating random status...")
+            new_status = random.choice(BOT_GENERAL_STATUSES)
+            new_status = BOT_GENERAL_STATUSES[-1]
+            activity = Activity(type=new_status["type"], name=new_status["text"])
+            logger.info(f"Changing status to {new_status['type']}, {new_status['text']}.")
+            await self.bot.change_presence(status=Status.online, activity=activity)
+        else:
+            logger.info("Checked for a status change, but it isn't the time yet.")
+
+    @tasks.loop(minutes=3)
+    async def change_status_new(self):
+        '''Changes the bot status. The status will be changed to something related to current lessons
+        if there is a schedule available. If not, it will be changed to something else.'''
+        logger.info("Changing status...")
+        now = get_now()
+        #Check if schedules are available
+        schedule = None
+        if now.hour < 9 or now.hour > 17: #No lessons - set general status
+            general_status = True
+        else:
+            general_status = True if schedule == None else False
+
+        if general_status:
+            logger.info("Using a general status.")
+            status = random.choice(BOT_GENERAL_STATUSES)
+            activity = Activity(type=status["type"], name=status["text"])
+            logger.info(f"New status: {status}. Changing...")
+            await self.bot.change_presence(status=Status.online, activity=activity)
+            logger.info("Bot status set.")
+        else:
+            logger.info("Using informational status.")
+            # TODO: Implement
+
 
     @commands.command(name="eval")
     @commands.is_owner() #Make this only callable by owner

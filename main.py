@@ -3,7 +3,7 @@ Runs the bot.'''
 import logging, nextcord, os
 from logging.handlers import RotatingFileHandler
 from nextcord.ext import commands #Import command handler
-from bot_commands import clubs, predefined_messages, menu, general, pentry #Import bot commands
+from bot_commands import clubs, predefined_messages, menu, general, pentry, message_subscriptions, schedules, good_morning, seasonal_profile_pictures #Import bot commands
 from utils.general import LOGGING_DIRECTORY, LOGGING_HANDLER_FILEPATH
 
 #Set up logging
@@ -27,15 +27,19 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     handlers=[log_filehandler, log_console_handler]) #Set log level to debug and add rotating file handler
 #Get bot token
 BOT_TOKEN = os.environ.get("SSIS_BOT_TOKEN")
-
-bot = commands.Bot(command_prefix="ssisb ")
+intents = nextcord.Intents.all() #nextcord.Intents(messages=True, message_content=True, members=True)
+bot = commands.Bot(command_prefix="ssisb ", intents=intents)
 logger.info("Adding cogs...")
 cogs = [
     clubs.Clubs,
     predefined_messages.PredefinedMessages,
     menu.Menu,
     general.General,
-    pentry.Pentry
+    pentry.Pentry,
+    #message_subscriptions.SubscribedMessagesSubscription,
+    #schedules.Schedules,
+    good_morning.GoodMorning,
+    seasonal_profile_pictures.SeasonalProfilePictures
 ]
 i = 1
 for cog in cogs: #Add every cog
