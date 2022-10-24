@@ -68,7 +68,6 @@ class General(Cog):
         if random.randint(1,2) == 1 or self.bot.activity is None:
             logger.info("Status of bot should be changed. Generating random status...")
             new_status = random.choice(BOT_GENERAL_STATUSES)
-            new_status = BOT_GENERAL_STATUSES[-1]
             activity = Activity(type=new_status["type"], name=new_status["text"])
             logger.info(f"Changing status to {new_status['type']}, {new_status['text']}.")
             await self.bot.change_presence(status=Status.online, activity=activity)
