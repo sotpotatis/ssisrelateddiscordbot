@@ -1,5 +1,7 @@
 '''good_morning.py
 Contains some helper functions and constants related to the good morning command.'''
+import datetime
+
 from utils.general import get_json, write_json, GOOD_MORNING_DATA_FILEPATH, GOOD_MORNING_GREETINGS_FILEPATH, GOOD_MORNING_RESPONSES_FILEPATH, BAD_GOOD_MORNING_STARTS, get_now
 from nextcord import Message, Emoji
 import logging, os, re
@@ -18,7 +20,14 @@ GOOD_MORNING_PHRASES = open(GOOD_MORNING_GREETINGS_FILEPATH, "r", encoding="UTF-
 GOOD_MORNING_RESPONSES = open(GOOD_MORNING_RESPONSES_FILEPATH, "r", encoding="UTF-8").read().splitlines()
 logger.info(f"Loaded {len(GOOD_MORNING_PHRASES)} good morning phrases, {len(GOOD_MORNING_PHRASES)} responses")
 
-GOOD_MORNING_REACTION_EMOJI = "☺️"
+GOOD_MORNING_REACTION_EMOJIS = {
+    "seasonal": [
+        {"from": {"month": 10, "day": 24}, "to": {"month": 10, "day": 31}, "emoji": "🎃"},  # Halloween emoji
+        {"from": {"month": 12, "day": 20}, "to": {"month": 12, "day": 25}, "emoji": "🎅"},  # Christmas emoji
+        {"from": {"month": 1, "day": 1}, "to": {"month": 1, "day": 1}, "emoji": "🎆" } # New year's emoji
+    ],
+    "fallback": "☺️"
+}
 
 # Constants: for functions
 ACTION_SEND_MESSAGE = "send_message"
@@ -75,3 +84,21 @@ def check_is_good_morning_message(message:Message, bot_user_id:int):
             return action
     return None
 
+def get_good_morning_emoji()->str:
+    '''Gets the emoji to react to good morning messages with.
+    Reaction emojis are seasonal, so there will be exclusive emojis around Christmas etc.
+
+    :returns: The good morning emoji as a string'''
+    now = get_now()
+    reaction_emoji = GOOD_MORNING_REACTION_EMOJIS["fallback"]
+    # Check emojis if there is any seasonal one
+    for seasonal_reaction_emoji in GOOD_MORNING_REACTION_EMOJIS["seasonal"]:
+        emoji_active_from = seasonal_reaction_emoji["from"]
+        emoji_active_to = seasonal_reaction_emoji["to"]
+        emoji_active_from_dt = datetime.date(year=now.year, month=emoji_active_from["month"], day=emoji_active_from["day"])
+        emoji_active_to_dt = datetime.date(year=now.year, month=emoji_active_to["month"], day=emoji_active_to["day"])
+        if emoji_active_from_dt <= now.date() <= emoji_active_to_dt:
+            emoji = seasonal_reaction_emoji["emoji"]
+            logger.info(f"Found active seasonal emoji \"{emoji}\"! Using...")
+            reaction_emoji = emoji
+    return reaction_emoji # Return found reaction emoji

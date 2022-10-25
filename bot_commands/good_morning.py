@@ -11,7 +11,7 @@ import random
 from nextcord.ext.commands import Cog, Bot
 from nextcord import Message, Emoji
 from utils.good_morning import get_good_morning_data, check_is_good_morning_message, write_to_good_morning_file, \
-    ACTION_SEND_MESSAGE, ACTION_REACT, GOOD_MORNING_RESPONSES, GOOD_MORNING_REACTION_EMOJI
+    ACTION_SEND_MESSAGE, ACTION_REACT, GOOD_MORNING_RESPONSES, get_good_morning_emoji
 from utils.general import get_now
 
 
@@ -36,6 +36,8 @@ class GoodMorning(Cog):
             self.logger.info("Good morning message sent.")
         if message_action is not None:
             # React to good morning message
-            self.logger.info("Reacting to a good morning message...")
-            await message.add_reaction(GOOD_MORNING_REACTION_EMOJI)
+            # Reaction emojis are seasonal. Get which one to react with
+            reaction_emoji = get_good_morning_emoji()
+            self.logger.info(f"Reacting to a good morning message with emoji \"{reaction_emoji}\"...")
+            await message.add_reaction(reaction_emoji)
             self.logger.info("Message reacted to.")
