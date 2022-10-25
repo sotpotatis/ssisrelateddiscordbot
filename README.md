@@ -19,7 +19,7 @@ This Discord bot is has various capabilities related to the school Stockholm Sci
 
 * The bot can send a message to a given channel every week with who has "Pentryansvar" in the school.
 For curious outsiders, this is who are responsible for keeping the dishwashers running in the shared school
-pentrys.
+pentries.
 
 #### School club management system
 
@@ -33,6 +33,16 @@ pentrys.
 * Administrators can manage some features of the bot, like adding new clubs.
 
 > Note that all commands except administrative commands are made using slash commands. Administrative commands are called using text commands.
+
+#### Good morning messages
+
+* The bot will respond with a randomized text response to the first "good morning" message each day sent at a time considered to be morning in the #general channel on the server.
+* If the bot detects a message containing "good morning"-related content but the requirements on the first point is not met, the bot will react with an emoji. Standard is the blush emoji,
+with some exceptions during holidays etc.
+
+#### Automated profile picture changes
+
+* The bot will automatically change profile picture when it is a holiday (spring, Halloween, etc.) and use a general profile picture when no holiday period is active.
 
 #### Tech stack
 
