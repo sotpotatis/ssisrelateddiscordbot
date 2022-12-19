@@ -44,7 +44,9 @@ BOT_GENERAL_STATUSES = [{"type": ActivityType.listening, "text": "Davids serverd
                         {"type": ActivityType.watching, "text": "Davids robotarm som klappar Yoshi <3"},
                         {"type": ActivityType.listening, "text": "Davids robotarm som klappar Yoshi <3"},
                         {"type": ActivityType.listening, "text": "God morgon-meddelanden"},
-                        {"type": ActivityType.watching, "text": "vad för mat som serveras på Eatery idag"}
+                        {"type": ActivityType.playing, "text": "Othello för mig själv i biblioteket"},
+                        {"type": ActivityType.playing, "text": "Othello med en kompis"},
+                        {"type": ActivityType.listening, "text": "massa elever som lånar böcker i biblioteket"}
                         ]
 MAIN_SERVER_ID = 746412815048376371 #Server to retrieve members from. The bot is intended to be used on one single server.
 #JSON-related functions
