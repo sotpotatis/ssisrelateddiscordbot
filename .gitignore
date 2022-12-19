@@ -2,3 +2,5 @@
 /venv/
 data/menu.json
 data/pentryansvar.json
+.idea
+utils/ssis_schedule_python

@@ -2,8 +2,8 @@
 Contains a cog to change bot profile pictures depending on the current season.
 Used to implement special profile pictures for spring, Christmas, etc."""
 from nextcord.ext import commands, tasks
-import logging, os
-from utils.general import SEASONAL_PROFILE_PICTURES_FILEPATH, get_json, get_now, SEASONAL_PROFILE_PICTURES_DIRECTORY, string_to_localized_datetime
+import logging, os, datetime, pytz
+from utils.general import SEASONAL_PROFILE_PICTURES_FILEPATH, get_json, get_now, SEASONAL_PROFILE_PICTURES_DIRECTORY, BASE_TIMEZONE
 
 
 class SeasonalProfilePictures(commands.Cog):
@@ -33,8 +33,8 @@ class SeasonalProfilePictures(commands.Cog):
         for seasonal_profile_picture in seasonal_profile_pictures["seasonal"]:
             active_from = seasonal_profile_picture["active_from"]
             active_to = seasonal_profile_picture["active_to"]
-            active_from_dt = string_to_localized_datetime(active_from)
-            active_to_dt = string_to_localized_datetime(active_to)
+            active_from_dt = datetime.datetime(year=now.year, **active_from).astimezone(tz=pytz.timezone(BASE_TIMEZONE))
+            active_to_dt = datetime.datetime(year=now.year, **active_to).astimezone(tz=pytz.timezone(BASE_TIMEZONE))
             if active_from_dt <= now <= active_to_dt:
                 self.logger.info("Found currently active profile picture!")
                 currently_active_profile_picture = seasonal_profile_picture

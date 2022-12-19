@@ -98,3 +98,8 @@ God morgon! Jag har läst på i en ordbok hur man säger god morgon på massa sp
 God morgon hörrdu! 👀🤖
 Hej och godmorgon på dig!
 Tja. Morgon!
+Godmorgon. Jag har svårt att bestämma mig, borde jag ta mint-té eller borde jag ta jordgubbsté? Den eviga frågan. Jag är ju en bot så jag borde väl kunna `Math.floor(Math.random() * 2)+1`.
+Morgon. Har ni några skoluppgifter att arbeta på idag?
+Godmorgon och tjenare hörni. Jag sitter och tittar på 3D-printrarna i Dalek. De rör sig fram och tillbaka, fram och tillbaka, upp och ner, tick tack klick klack.
+Godmorgon hörni. Jag sitter och tittar på 3D-printrarna i Dalek. Ojsan, där tog visst en rulle filament slut. Brb, ska bara byta ut den!
+Godmorgon hörni. Jag sitter och tittar på vädret utanför.
