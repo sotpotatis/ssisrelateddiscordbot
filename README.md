@@ -4,6 +4,15 @@
 
 This Discord bot is has various capabilities related to the school Stockholm Science & Innovation School.
 
+> **Warning**
+> 
+> On 2023-03-10, the basic file structure of the bot was changed.
+> Please see [this document](MIGRATE_MARCH_2023.md) for more information.
+
+> **Note**
+>
+> [Dockerfiles](Dockerfile) for the bot are still beta. They may or may not work properly.
+ 
 ### Feature breakdown
 
 #### Lunch menu information

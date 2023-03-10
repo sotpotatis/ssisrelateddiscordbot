@@ -23,7 +23,7 @@ class Pentry(Cog):
 
     @tasks.loop(hours=1)
     async def pentryansvar_task_loop(self):
-        '''The pentryansvar task loop checks if information about pentryansvar has been sent for the current week, or if the data has changed.
+        '''The pentryansvar task loop checks if information about pentryansvar has been sent for the current week, or if the fluid_data has changed.
         If not, it will try to fix that by downloading information.
         Since I maintain this server, I think a request per hour is totally reasonable.
         TODO: Make this command callable by admins if needed'''
@@ -59,33 +59,33 @@ class Pentry(Cog):
                     ]
                 }
             ]
-            cached_pentryansvar_data = get_pentryansvar_data() #This is some data that we have saved about the previous message
+            cached_pentryansvar_data = get_pentryansvar_data() #This is some fluid_data that we have saved about the previous message
             if pentryansvar_data == None:
-                logger.warning("Pentryansvar data is not available. Check will be skipped.")
+                logger.warning("Pentryansvar fluid_data is not available. Check will be skipped.")
                 return #Stop the task
             pentryansvar_message_channel = self.bot.get_channel(cached_pentryansvar_data["pentry_information_channel_id"])
 
             """
             We have the following conditions now:
             * New week --> Create a new message and post it
-            * Old week --> Check if cached data is different --> If yes, update the old message
+            * Old week --> Check if cached fluid_data is different --> If yes, update the old message
             """
             last_information_message_sent_for_week = cached_pentryansvar_data["information_message"]["for_week"]
             current_week = get_now().isocalendar()[1] #Get the current week number
             if last_information_message_sent_for_week == current_week:
                 logger.info("Message for this week has already been sent.")
-                #Check if data has changed
+                #Check if fluid_data has changed
                 if cached_pentryansvar_data["cached_data"] != pentryansvar_data:
                     logger.info("Data on server has changed! The message will be updated.")
                     send_new_information_message = False
                 else:
-                    logger.info("The data has not been changed. The message will not be updated.")
+                    logger.info("The fluid_data has not been changed. The message will not be updated.")
                     return #Stop the task
             else:
                 logger.info("Message for this week has not been sent. A new one will be generated.")
                 send_new_information_message = True
             #Generate the message
-            logger.info("Generating new message with pentry data...")
+            logger.info("Generating new message with pentry fluid_data...")
             final_message = Embed(
                 title="Pentryansvar",
                 description="Här nedanför ser du vilka som har pentryansvar denna vecka.",
@@ -145,12 +145,12 @@ class Pentry(Cog):
                 previous_message = await pentryansvar_message_channel.fetch_message(cached_pentryansvar_data["information_message"]["id"])
                 await previous_message.edit(embed=final_message)
                 logger.info("Previous message edited.")
-            cached_pentryansvar_data["cached_data"] = pentryansvar_data #Save cached data
+            cached_pentryansvar_data["cached_data"] = pentryansvar_data #Save cached fluid_data
             cached_pentryansvar_data["message_last_updated_at"] = str(get_now()) #Update update date
-            logger.debug("Cached pentryansvar data updated in memory.")
-            logger.info("Updating previous cached data...")
+            logger.debug("Cached pentryansvar fluid_data updated in memory.")
+            logger.info("Updating previous cached fluid_data...")
             write_pentryansvar_data(cached_pentryansvar_data)
-            logger.info("Updated previous cached data.")
+            logger.info("Updated previous cached fluid_data.")
         else:
             logger.info("It is weekend. A check will not be performed.")
         logger.info("Done with pentryansvar message task.")

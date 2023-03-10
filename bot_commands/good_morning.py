@@ -27,7 +27,7 @@ class GoodMorning(Cog):
         if message_action == ACTION_SEND_MESSAGE:
             self.logger.info("Sending a good morning message...")
             response_string = random.choice(GOOD_MORNING_RESPONSES)
-            self.logger.info("Writing data to file...")
+            self.logger.info("Writing fluid_data to file...")
             good_morning_data = get_good_morning_data()
             good_morning_data["message_sent_at"] = str(get_now().date())
             write_to_good_morning_file(good_morning_data)

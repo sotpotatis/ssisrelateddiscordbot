@@ -40,7 +40,7 @@ def get_cached_schedules():
     now = get_now()
     schedules = {}
     for class_name in wanted_classes:
-        schedule_data = None #Set None as schedule data but look for active schedule below
+        schedule_data = None #Set None as schedule fluid_data but look for active schedule below
         if class_name in cached_schedules["schedules"]:
             logger.debug("Class found in file, checking if it has been cached today...")
             schedule_cached_at = datetime.datetime.fromisoformat(cached_schedules["schedules"][class_name]["cached_at"]).astimezone(BASE_TIMEZONE)
@@ -51,8 +51,8 @@ def get_cached_schedules():
                 logger.debug(f"Schedule for {class_name} was cached too long ago ({schedule_cached_at})!")
         else:
             logger.warning(f"No cached schedule found for {class_name} (class is not cached)!")
-        schedules[class_name] = schedule_data #Add name to data
-    return schedules #Return parsed schedule data
+        schedules[class_name] = schedule_data #Add name to fluid_data
+    return schedules #Return parsed schedule fluid_data
 
 async def cache_schedules():
     '''Attempts to cache schedules by downloading them from SSIS's schedule server.'''
@@ -92,7 +92,7 @@ async def cache_schedules():
             # Generate schedule content and save
             class_schedule = {"cached_at": str(now), "schedule_content": raw_class_schedule}
             cached_schedules[class_to_retrieve] = class_schedule
-        logger.info("Writing update schedule data...")
+        logger.info("Writing update schedule fluid_data...")
         cached_schedules["downloaded_at"] = str(now)
         update_schedule_file(cached_schedules)
         logger.info("Cached schedules updated.")

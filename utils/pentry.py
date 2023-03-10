@@ -1,5 +1,5 @@
 '''pentry.py
-Contains various utilities related to grabbing pentry data.
+Contains various utilities related to grabbing pentry fluid_data.
 '''
 import aiohttp, logging
 from utils.general import get_json, write_json, PENTRYANSVAR_DATA_FILEPATH
@@ -11,10 +11,10 @@ def get_pentryansvar_data():
     return get_json(PENTRYANSVAR_DATA_FILEPATH)
 
 def write_pentryansvar_data(new_data):
-    '''Writes data to the file containing pentryansvar data.
+    '''Writes fluid_data to the file containing pentryansvar fluid_data.
 
-    :param new_data: The new data to write to the file.'''
-    write_json(PENTRYANSVAR_DATA_FILEPATH, new_data) #Write the new data to the file
+    :param new_data: The new fluid_data to write to the file.'''
+    write_json(PENTRYANSVAR_DATA_FILEPATH, new_data) #Write the new fluid_data to the file
 
 async def get_pentryansvar():
     '''Retrieves pentryansvar for the current week.

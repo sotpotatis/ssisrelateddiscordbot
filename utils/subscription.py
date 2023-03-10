@@ -32,7 +32,7 @@ def is_subscribed_to(user:Member, category_name:str, subcategory_name:str):
     if category_name in subscription_file["subscriptions"] and subcategory_name in subscription_file["subscriptions"][category_name]:
         return str(user.id) in subscription_file["subscriptions"][category_name][subcategory_name]["subscriptions"]
     else:
-        message = f"Requested subscription data for {category_name}:{subcategory_name} which does not seem to exist."
+        message = f"Requested subscription fluid_data for {category_name}:{subcategory_name} which does not seem to exist."
         logger.warning(message)
         raise Exception(message)
 
@@ -89,7 +89,7 @@ def get_users_not_notified_after(timestamp, category_name, subcategory_name):
 
 # Make sure that subscription file exists
 if not os.path.exists(SUBSCRIPTIONS_DATA_FILEPATH):
-    logger.info("Creating subscriptions data file...")
+    logger.info("Creating subscriptions fluid_data file...")
     update_subscriptions(DEFAULT_SUBSCRIPTION_FILE_CONTENT)
 # Make sure that subscription file includes the schema
 logger.info("Ensuring that subscription file matches schema...")

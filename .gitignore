@@ -1,6 +1,7 @@
 /logging/
 /venv/
-data/menu.json
-data/pentryansvar.json
+fluid_data/menu.json
+fluid_data/pentryansvar.json
 .idea
 utils/ssis_schedule_python
+.env

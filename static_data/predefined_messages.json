@@ -19,5 +19,16 @@
         "value": "...eller vill du bara avprenumerera? Gör så genom att skriva `/unsubscribe_to_club` i chatten. Där får du ett antal alternativ med klubbar att avprenumerera på."
       }
     ]
+  },
+  "mat_uppdatering": {
+    "fields": [
+      {"name": "ℹ️📣 Information! 📣ℹ️",
+        "value":  "Enligt efterfrågan så har denna kanal omvandlas till en Announcement-kanal, vilket innebär att du kan prenumerera på denna kanal för att få meddelanden om skolmaten i egna servrar."
+      },
+    {"name": "➡Vill du slippa notiser? Tysta kanalen!D️",
+        "value":  "Tidigare så har jag (SSIS Bot) redigerat samma meddelande varje dag med dagens meny. Nu kommer det istället skickas ett nytt meddelande här varje dag. Om du vill slippa notiser, tysta därför denna kanal."
+      }
+    ],
+    "color": 5793266
   }
 }

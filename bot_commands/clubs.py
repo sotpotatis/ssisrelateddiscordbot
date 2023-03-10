@@ -139,7 +139,7 @@ class Clubs(commands.Cog):
         '''Admin command to add a club. Note that this command was originally a slash command, but it has now been migrated
         to a regular command.'''
         logger.info("Got a request to add a club!")
-        #Generate club data
+        #Generate club fluid_data
         club_id = club_title.replace(" ", "_").replace("-", "_") #Generate a club ID based on the title
         #Create a role for the club if not specified
         if role == None:

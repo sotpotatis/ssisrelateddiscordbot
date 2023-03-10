@@ -3,6 +3,8 @@ Provides utilities related to various functions in the bot
 """
 import asyncio
 import json, os, logging, datetime, pytz, nextcord.utils
+from typing import Optional, Dict
+
 from utils.color_const import ERROR_EMBED_COLOR
 from nextcord import Embed, Activity, ActivityType
 
@@ -10,23 +12,25 @@ from nextcord import Embed, Activity, ActivityType
 logger = logging.getLogger(__name__)
 
 #Paths
-BOT_DIRECTORY = os.path.dirname(os.path.realpath(__file__)) #The directory that the bot runs in
-DATA_DIRECTORY = os.path.join(BOT_DIRECTORY, "../data") #Directory for storing data files
-CLUBS_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "clubs.json") #File for storing club data
-MENU_SUBSCRIPTIONS_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "menu_subscriptions.json") #File for storing menu subscription data
-ADMINISTRATORS_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "admins.json") #File for storing admins that have permission to use the bot
-PENTRYANSVAR_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "pentryansvar.json") #File for storing pentryansvar data
-ROLE_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "roles.json") #File for storing roles data
-CACHED_SCHEDULE_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "cached_schedules.json") #File for storing cached schedules
-SUBSCRIPTIONS_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "subscribed_schedules.json") #File for storing schedule subscriptions
-SUBSCRIPTIONS_SCHEMA_FILEPATH = os.path.join(DATA_DIRECTORY, "available_subscriptions.json") #File for defining available subscriptions
-GOOD_MORNING_DATA_FILEPATH = os.path.join(DATA_DIRECTORY, "good_morning.json") #Data regarding the good morning message
-GOOD_MORNING_GREETINGS_FILEPATH = os.path.join(DATA_DIRECTORY, "good_morning_greetings.txt") #Good morning messages around the world
-GOOD_MORNING_RESPONSES_FILEPATH = os.path.join(DATA_DIRECTORY, "good_morning_responses.txt") #Responses to when people say "good morning"
-BAD_GOOD_MORNING_STARTS = os.path.join(DATA_DIRECTORY, "bad_good_morning_starts.txt") #Bad beginning of the good morning detection, see good_morning.py
-SEASONAL_PROFILE_PICTURES_FILEPATH = os.path.join(DATA_DIRECTORY, "seasonal_profile_pictures.json") #Data for seasonal profile pictures
-SEASONAL_PROFILE_PICTURES_DIRECTORY = os.path.join(DATA_DIRECTORY, "seasonal_profile_pictures")
-LOGGING_DIRECTORY = os.path.join(BOT_DIRECTORY, "../logging")
+BOT_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_DIRECTORY", os.getcwd()) #The directory that the bot runs in
+FLUID_DATA_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_FLUID_DATA_DIRECTORY",
+                                 os.path.join(BOT_DIRECTORY, "fluid_data")) #Directory for storing bot and user data files (data that is fluid and updated by the bot)
+STATIC_DATA_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_STATIC_DATA_DIRECTORY ",
+                                  os.path.join(BOT_DIRECTORY, "static_data")) #Directiory for storing static data (that is not updated by the bot)
+CLUBS_DATA_FILEPATH = os.path.join(FLUID_DATA_DIRECTORY, "clubs.json") #File for storing club fluid_data
+MENU_SUBSCRIPTIONS_DATA_FILEPATH = os.path.join(FLUID_DATA_DIRECTORY, "menu_subscriptions.json") #File for storing menu subscription fluid_data
+PENTRYANSVAR_DATA_FILEPATH = os.path.join(FLUID_DATA_DIRECTORY, "pentryansvar.json") #File for storing pentryansvar fluid_data
+ROLE_DATA_FILEPATH = os.path.join(STATIC_DATA_DIRECTORY, "roles.json") #File for storing roles fluid_data
+CACHED_SCHEDULE_DATA_FILEPATH = os.path.join(FLUID_DATA_DIRECTORY, "cached_schedules.json") #File for storing cached schedules
+SUBSCRIPTIONS_DATA_FILEPATH = os.path.join(FLUID_DATA_DIRECTORY, "subscribed_schedules.json") #File for storing schedule subscriptions
+SUBSCRIPTIONS_SCHEMA_FILEPATH = os.path.join(FLUID_DATA_DIRECTORY, "available_subscriptions.json") #File for defining available subscriptions
+GOOD_MORNING_DATA_FILEPATH = os.path.join(FLUID_DATA_DIRECTORY, "good_morning.json") #Data regarding the good morning message
+GOOD_MORNING_GREETINGS_FILEPATH = os.path.join(STATIC_DATA_DIRECTORY, "good_morning_greetings.txt") #Good morning messages around the world
+GOOD_MORNING_RESPONSES_FILEPATH = os.path.join(STATIC_DATA_DIRECTORY, "good_morning_responses.txt") #Responses to when people say "good morning"
+BAD_GOOD_MORNING_STARTS = os.path.join(STATIC_DATA_DIRECTORY, "bad_good_morning_starts.txt") #Bad beginning of the good morning detection, see good_morning.py
+SEASONAL_PROFILE_PICTURES_FILEPATH = os.path.join(STATIC_DATA_DIRECTORY, "seasonal_profile_pictures.json") #Data for seasonal profile pictures
+SEASONAL_PROFILE_PICTURES_DIRECTORY = os.path.join(STATIC_DATA_DIRECTORY, "seasonal_profile_pictures")
+LOGGING_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_LOGGING_DIRECTORY", os.path.join(BOT_DIRECTORY, "logging"))
 LOGGING_HANDLER_FILEPATH = os.path.join(LOGGING_DIRECTORY, "log.log")
 #Other constants
 BASE_TIMEZONE = "Europe/Stockholm" #Base timezone for the bot
@@ -48,16 +52,16 @@ BOT_GENERAL_STATUSES = [{"type": ActivityType.listening, "text": "Davids serverd
                         {"type": ActivityType.playing, "text": "Othello med en kompis"},
                         {"type": ActivityType.listening, "text": "massa elever som lånar böcker i biblioteket"}
                         ]
-MAIN_SERVER_ID = 746412815048376371 #Server to retrieve members from. The bot is intended to be used on one single server.
+MAIN_SERVER_ID = 746412815048376371 #Server to retrieve members from. The bot is intended to be used on one single server and therefore this is hard coded.
 #JSON-related functions
 def get_json(filepath):
     """Retrieves JSON from a certain filepath."""
-    with open(filepath) as json_file:
+    with open(filepath, encoding="UTF-8") as json_file:
         return json.loads(json_file.read())
 
 def write_json(filepath, new_json):
     """Writes JSON to a file at the provided filepath."""
-    with open(filepath, "w") as json_file:
+    with open(filepath, "w", encoding="UTF-8") as json_file:
         json_file.write(json.dumps(new_json, indent=True))
 
 #Time-related functions
@@ -73,15 +77,19 @@ def get_current_day_name():
     current_day_name = day_mappings[current_day_number - 1]
     return current_day_name
 #Embeds
-def generate_error_embed(title="Sorry! Ett fel inträffade", description="Pinsamt va? Hehe. Jag ber om ursäkt! Peace out! Testa igen senare, eller nåt.", *args, **kwargs):
+def generate_error_embed(title:str="Sorry! Ett fel inträffade", description:str="Pinsamt va? Hehe. Jag ber om ursäkt! Peace out! Testa igen senare, eller nåt.", footer:Optional[Dict]=None, *args, **kwargs)->Embed:
     """Shortcut function for generating an embed message that can be sent when an error has occurred."""
-    return Embed(
+    error_embed = Embed(
         *args,
         title=title,
         description=description,
         color=ERROR_EMBED_COLOR,
         **kwargs
     )
+    # Add a footer to the message if provided
+    if footer is not None:
+        error_embed.set_footer(**footer)
+    return error_embed
 
 #Other
 async def class_name_to_role(bot, guild, class_name):
@@ -207,18 +215,14 @@ async def ensure_admin_permissions(bot, user, guild, interaction_or_ctx=None):
             error_embed = generate_error_embed(
                 "Du är inte en admin eller moderator...",
                 "...Och därför har du inte behörigheterna som krävs att utföra detta kommando.",
-                footer="Detta meddelande kommer att raderas efter 1 minut."
+                footer={
+                    "text": "Detta meddelande kommer att raderas efter 1 minut."
+                }
             )
             if type(interaction_or_ctx) == nextcord.Interaction: #Reply to interaction
                 logger.info("Sending error message...")
-                error_message = await interaction_or_ctx.response.send_message(embed=error_embed)
+                error_message = await interaction_or_ctx.response.send_message(embed=error_embed, delete_after=60)
                 original_message = interaction_or_ctx.message
-            #Delete error message
-            await asyncio.sleep(60) #Sleep for 60 seconds
-            logger.info("Deleting permission denying messages...")
-            await error_message.delete()
-            await original_message.delete()
-            logger.info("Permission denying messages deleted.")
 
 
 def string_to_localized_datetime(input:str):

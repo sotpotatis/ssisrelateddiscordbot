@@ -1,0 +1,104 @@
+{
+ "cached_menu": {
+  "title": "Lunchmeny Eatery Kista Nod v.10",
+  "week_number": 10,
+  "url": "https://eatery.se/meny/2401/lunchmeny-14",
+  "days": {
+   "monday": {
+    "day_name": {
+     "swedish": "M\u00e5ndag",
+     "english": "Monday"
+    },
+    "dishes": [
+     "Pasta bolognese med tomat och l\u00f6ksallad, ruccola samt grana padano",
+     "Stekt laxforell med dillstuvad potatis, gravlaxs\u00e5s och citron",
+     "Stekt vegokorv med Ratatouille med potatismos"
+    ],
+    "special_features": {
+     "sweet_tuesday": false,
+     "fruity_wednesday": false,
+     "pancake_thursday": false,
+     "burger_friday": false
+    }
+   },
+   "tuesday": {
+    "day_name": {
+     "swedish": "Tisdag",
+     "english": "Tuesday"
+    },
+    "dishes": [
+     "Kycklingbr\u00f6stfil\u00e9 med ris och kr\u00e4mig svamps\u00e5s, bakad pumpa",
+     "V\u00e4sterbottengratinerad sej med hummerveloute, f\u00e4nk\u00e5lscrudite, kokt potatis",
+     "Ost och Broccolipaj med K\u00f6ksm\u00e4starens h\u00e4lsosallad"
+    ],
+    "special_features": {
+     "sweet_tuesday": false,
+     "fruity_wednesday": false,
+     "pancake_thursday": false,
+     "burger_friday": false
+    }
+   },
+   "wednesday": {
+    "day_name": {
+     "swedish": "Onsdag",
+     "english": "Wednesday"
+    },
+    "dishes": [
+     "Kalops och palsternackspur\u00e9, r\u00f6dbetor",
+     "Kungsfisk Dopiaz, het tomatcurry, rostad l\u00f6k, koriander och \u00f6rtpotatis",
+     "Wokade nudlar \u201dchow mein\u201d med tofu, stekt \u00e4gg och chili/sojas\u00e5s"
+    ],
+    "special_features": {
+     "sweet_tuesday": false,
+     "fruity_wednesday": false,
+     "pancake_thursday": false,
+     "burger_friday": false
+    }
+   },
+   "thursday": {
+    "day_name": {
+     "swedish": "Torsdag",
+     "english": "Thursday"
+    },
+    "dishes": [
+     "Kycklingschnitzel med fried rice och mangorayadressing",
+     "Spansk bouillabaisse med aioli, dill och citronslungad potatis",
+     "Kr\u00e4mig indisk gryta med kik\u00e4rtor, linser, blomk\u00e5l och kokos",
+     "Pancake Thursday: Vi bjuder p\u00e5 pannkakor, l\u00e4ttvispad gr\u00e4dde och hemmagjord sylt!"
+    ],
+    "special_features": {
+     "sweet_tuesday": false,
+     "fruity_wednesday": false,
+     "pancake_thursday": true,
+     "burger_friday": false
+    }
+   },
+   "friday": {
+    "day_name": {
+     "swedish": "Fredag",
+     "english": "Friday"
+    },
+    "dishes": [
+     "Fl\u00e4skkarr\u00e9 med rostade rotfrukter med s\u00f6tpotatis samt caf\u00e9 de parissm\u00f6r",
+     "Stekt torsk med citron och pepparrotssm\u00f6r, gurka, dill och kokt potatis",
+     "Gratinerad tortellini med tomat och mozzarella, rostade solrosfr\u00f6n, ruccola"
+    ],
+    "special_features": {
+     "sweet_tuesday": false,
+     "fruity_wednesday": false,
+     "pancake_thursday": false,
+     "burger_friday": false
+    }
+   }
+  },
+  "footer": "Allergi? Fr\u00e5ga oss!\n\u00a0 \u00a0R\u00e4dda maten!\nOm vi f\u00e5r \u00f6ver mat fr\u00e5n lunchen s\u00e4ljer vi matl\u00e5dor mellan kl. 13.30-14.30 f\u00f6r take away.\nEndast 64kr, bra f\u00f6r milj\u00f6n och f\u00f6r din pl\u00e5nbok."
+ },
+ "menu_cached_at": "2023-03-10 18:05:19.503516+01:00",
+ "menu_information_message_ids": {
+  "day": 1083789549995577355,
+  "week": 1083789548779212931
+ },
+ "menu_information_channel_id": 940258563673174066,
+ "week_message_sent_at": 1678465958.899174,
+ "day_message_sent_at": 1678465959.1683984
+}

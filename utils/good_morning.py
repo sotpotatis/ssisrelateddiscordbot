@@ -41,11 +41,11 @@ for filepath in REQUIRED_FILES:
 def write_to_good_morning_file(data):
     '''Writes new JSON content to the good morning file.
 
-    :param data: The data to write.'''
+    :param data: The fluid_data to write.'''
     write_json(GOOD_MORNING_DATA_FILEPATH, data)
 
 def get_good_morning_data():
-    '''Gets good morning data file content.'''
+    '''Gets good morning fluid_data file content.'''
     return get_json(GOOD_MORNING_DATA_FILEPATH)
 
 def remove_punctuation(input_string):
