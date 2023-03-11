@@ -3,6 +3,7 @@ Provides utilities related to various functions in the bot
 """
 import asyncio
 import json, os, logging, datetime, pytz, nextcord.utils
+import shutil
 from typing import Optional, Dict
 
 from utils.color_const import ERROR_EMBED_COLOR
@@ -12,9 +13,22 @@ from nextcord import Embed, Activity, ActivityType
 logger = logging.getLogger(__name__)
 
 #Paths
+# ABOUT FLUID STORAGE
+# In an environment such as a docker container, data storage will be separated:
+# the "fluid data" directory explained below (short explanation; it stores data that is updated
+# as the bot is running) will be mounted at a different volume and path from everything else.
+# On the first start (when the fluid data volume is brand new), we want to make sure that all files
+# are copied from the Dockerfile over to the fluid_data directory.
+# We make use of an environent variable to detect whether fluid data storage is enabled or not.
+FLUID_STORAGE_ENABLED = bool(os.getenv("SSIS_DISCORD_BOT_STORAGE_IS_FLUID", False))
+# If you have a volume for fluid data mounted, the SSIS_DISCORD_BOT_FLUID_STORAGE_BASE_PATH variable
+# can be used to specify where the volume is mounted.
+FLUID_STORAGE_BASE_PATH = os.getenv("SSIS_DISCORD_BOT_FLUID_STORAGE_BASE_PATH", "")
 BOT_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_DIRECTORY", os.getcwd()) #The directory that the bot runs in
+SOURCE_FLUID_DATA_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_SOURCE_FLUID_DATA_DIRECTORY", #Where initial fluid data will be (only relevant when using fluid storage (see above))
+                                        os.path.join(BOT_DIRECTORY, "fluid:data"))
 FLUID_DATA_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_FLUID_DATA_DIRECTORY",
-                                 os.path.join(BOT_DIRECTORY, "fluid_data")) #Directory for storing bot and user data files (data that is fluid and updated by the bot)
+                                 os.path.join(BOT_DIRECTORY, FLUID_STORAGE_BASE_PATH, "fluid_data")) #Directory for storing bot and user data files (data that is fluid and updated by the bot)
 STATIC_DATA_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_STATIC_DATA_DIRECTORY ",
                                   os.path.join(BOT_DIRECTORY, "static_data")) #Directiory for storing static data (that is not updated by the bot)
 CLUBS_DATA_FILEPATH = os.path.join(FLUID_DATA_DIRECTORY, "clubs.json") #File for storing club fluid_data
@@ -30,7 +44,7 @@ GOOD_MORNING_RESPONSES_FILEPATH = os.path.join(STATIC_DATA_DIRECTORY, "good_morn
 BAD_GOOD_MORNING_STARTS = os.path.join(STATIC_DATA_DIRECTORY, "bad_good_morning_starts.txt") #Bad beginning of the good morning detection, see good_morning.py
 SEASONAL_PROFILE_PICTURES_FILEPATH = os.path.join(STATIC_DATA_DIRECTORY, "seasonal_profile_pictures.json") #Data for seasonal profile pictures
 SEASONAL_PROFILE_PICTURES_DIRECTORY = os.path.join(STATIC_DATA_DIRECTORY, "seasonal_profile_pictures")
-LOGGING_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_LOGGING_DIRECTORY", os.path.join(BOT_DIRECTORY, "logging"))
+LOGGING_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_LOGGING_DIRECTORY", os.path.join(BOT_DIRECTORY, FLUID_STORAGE_BASE_PATH, "logging"))
 LOGGING_HANDLER_FILEPATH = os.path.join(LOGGING_DIRECTORY, "log.log")
 #Other constants
 BASE_TIMEZONE = "Europe/Stockholm" #Base timezone for the bot
@@ -221,11 +235,38 @@ async def ensure_admin_permissions(bot, user, guild, interaction_or_ctx=None):
             )
             if type(interaction_or_ctx) == nextcord.Interaction: #Reply to interaction
                 logger.info("Sending error message...")
-                error_message = await interaction_or_ctx.response.send_message(embed=error_embed, delete_after=60)
-                original_message = interaction_or_ctx.message
+                await interaction_or_ctx.response.send_message(embed=error_embed, delete_after=60)
 
 
 def string_to_localized_datetime(input:str):
     """Takes a string, converts it to a datetime and also ensures that that datetime
     is in the current BASE_TIMEZONE."""
     return datetime.datetime.fromisoformat(input).astimezone(pytz.timezone(BASE_TIMEZONE))
+
+
+# See the documentation under "FLUID STORAGE" above for information about fluid storage.
+# Here, we copy over all files to the fluid storage volume if they do not exist there already.
+if FLUID_STORAGE_ENABLED:
+    logger.info("Fluid storage is enabled - running data check...")
+    if not os.path.exists(FLUID_DATA_DIRECTORY):
+        logger.info("Creating directory for fluid data...")
+        os.mkdir(FLUID_DATA_DIRECTORY)
+    else:
+        logger.info("Fluid data directory already created at the target path.")
+    if not os.path.exists(LOGGING_DIRECTORY):
+        logger.info("Creating directory for logging...")
+        os.mkdir(LOGGING_DIRECTORY)
+    else:
+        logger.info("Logging directory already created at the target path.")
+    if SOURCE_FLUID_DATA_DIRECTORY != FLUID_DATA_DIRECTORY:
+        logger.info("Checking files...")
+        target_fluid_data_directory_files = os.listdir(FLUID_DATA_DIRECTORY)
+        for file in os.listdir(SOURCE_FLUID_DATA_DIRECTORY):
+            if file not in target_fluid_data_directory_files:
+                source_filepath = os.path.join(SOURCE_FLUID_DATA_DIRECTORY, file)
+                target_filepath = os.path.join(FLUID_DATA_DIRECTORY, file)
+                logger.info(f"Copying file {file} to target directory (from {source_filepath} to {target_filepath})...")
+                shutil.copy(source_filepath,
+                            target_filepath)
+            else:
+                logger.info(f"{file} already exists in the target directory.")
