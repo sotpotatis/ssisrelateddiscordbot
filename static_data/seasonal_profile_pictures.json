@@ -1,72 +1,74 @@
 {
   "fallback": {
-    "filename":  "standard_pfp.png"
+    "filename": "standard_pfp.png"
   },
-  "seasonal": [{
-    "active_from":  {
-      "month": 10,
-      "day": 31
+  "seasonal": [
+    {
+      "active_from": {
+        "month": 10,
+        "day": 31
+      },
+      "active_to": {
+        "month": 10,
+        "day": 31,
+        "hour": 23,
+        "minute": 59,
+        "second": 59
+      },
+      "filename": "halloween.png"
     },
-    "active_to":  {
-      "month": 10,
-      "day": 31,
-      "hour": 23,
-      "minute": 59,
-      "second": 59
+    {
+      "active_from": {
+        "month": 12,
+        "day": 13
+      },
+      "active_to": {
+        "month": 12,
+        "day": 25,
+        "hour": 23,
+        "minute": 59,
+        "second": 59
+      },
+      "filename": "christmas.png"
     },
-    "filename": "halloween.png"
-  },
-  {
-    "active_from":  {
-      "month": 12,
-      "day": 13
+    {
+      "active_from": {
+        "month": 12,
+        "day": 31
+      },
+      "active_to": {
+        "month": 12,
+        "day": 31,
+        "hour": 23,
+        "minute": 59,
+        "second": 59
+      },
+      "filename": "new_years.png"
     },
-    "active_to":  {
-      "month": 12,
-      "day": 25,
-      "hour": 23,
-      "minute": 59,
-      "second": 59
+    {
+      "active_from": {
+        "month": 1,
+        "day": 1
+      },
+      "active_to": {
+        "month": 1,
+        "day": 2
+      },
+      "filename": "new_years.png"
     },
-    "filename": "christmas.png"
-  },
-  {
-    "active_from":  {
-      "month": 12,
-      "day": 31
-    },
-    "active_to":  {
-      "month": 12,
-      "day": 31,
-      "hour": 23,
-      "minute": 59,
-      "second": 59
-    },
-    "filename": "new_years.png"
-  },
-  {
-    "active_from":  {
-      "month": 1,
-      "day": 1
-    },
-    "active_to":  {
-      "month": 1,
-      "day": 2
-    },
-    "filename": "new_years.png"
-  },
-  {
-    "active_from":  {
-      "month": 3,
-      "day": 22
-    },
-    "active_to":  {
-      "month": 3,
-      "day": 31,
-      "hour": 23,
-      "minute": 59,
-      "second": 59
-    },
-    "filename": "ramadan.png"
-  }]
+    {
+      "active_from": {
+        "month": 3,
+        "day": 22
+      },
+      "active_to": {
+        "month": 3,
+        "day": 31,
+        "hour": 23,
+        "minute": 59,
+        "second": 59
+      },
+      "filename": "ramadan.png"
+    }
+  ]
 }

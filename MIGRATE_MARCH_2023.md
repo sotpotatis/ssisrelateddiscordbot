@@ -14,6 +14,6 @@ To decide what to move, I recommend you to simply look over what is in the `flui
 
 ### New things that this change implemented
 
-* Docker compatibility
-* More environment variables for directories which means more possible customization!
-* Other functional updates not related to the migration were implemented close to the update.
+- Docker compatibility
+- More environment variables for directories which means more possible customization!
+- Other functional updates not related to the migration were implemented close to the update.

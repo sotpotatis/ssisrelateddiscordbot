@@ -1,35 +1,35 @@
 {
- "cached_data": [
-  {
-   "pentry_name": "Pentry 1",
-   "pentry_number": "1",
-   "responsible_class": "Te19A",
-   "responsible_persons": [
-    "Yasmin",
-    "Daniel",
-    "Anna",
-    "Sebastian",
-    "Arseniy och Jakob"
-   ]
+  "cached_data": [
+    {
+      "pentry_name": "Pentry 1",
+      "pentry_number": "1",
+      "responsible_class": "Te19A",
+      "responsible_persons": [
+        "Yasmin",
+        "Daniel",
+        "Anna",
+        "Sebastian",
+        "Arseniy och Jakob"
+      ]
+    },
+    {
+      "pentry_name": "Pentry 2",
+      "pentry_number": "2",
+      "responsible_class": "Te19B",
+      "responsible_persons": [
+        "Jacob",
+        "Frank",
+        "Fabian",
+        "Mattias",
+        "Gabriel och August"
+      ]
+    }
+  ],
+  "message_last_updated_at": "2022-04-25 20:33:37.841137+02:00",
+  "pentry_information_channel_id": 938400309548580874,
+  "information_message": {
+    "id": 968217700717457488,
+    "for_week": 17
   },
-  {
-   "pentry_name": "Pentry 2",
-   "pentry_number": "2",
-   "responsible_class": "Te19B",
-   "responsible_persons": [
-    "Jacob",
-    "Frank",
-    "Fabian",
-    "Mattias",
-    "Gabriel och August"
-   ]
-  }
- ],
- "message_last_updated_at": "2022-04-25 20:33:37.841137+02:00",
- "pentry_information_channel_id": 938400309548580874,
- "information_message": {
-  "id": 968217700717457488,
-  "for_week": 17
- },
- "find_roles_in_guild": 938370308807753738
+  "find_roles_in_guild": 938370308807753738
 }
