@@ -95,10 +95,10 @@
  },
  "menu_cached_at": "2023-03-10 18:05:19.503516+01:00",
  "menu_information_message_ids": {
-  "day": 1083789549995577355,
-  "week": 1083789548779212931
+  "day": null,
+  "week": null
  },
- "menu_information_channel_id": 940258563673174066,
- "week_message_sent_at": 1678465958.899174,
- "day_message_sent_at": 1678465959.1683984
+ "menu_information_channel_id": 938400156263530516,
+ "week_message_sent_at": null,
+ "day_message_sent_at": null
 }
