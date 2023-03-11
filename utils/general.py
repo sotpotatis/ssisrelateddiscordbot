@@ -26,7 +26,7 @@ FLUID_STORAGE_ENABLED = bool(os.getenv("SSIS_DISCORD_BOT_STORAGE_IS_FLUID", Fals
 FLUID_STORAGE_BASE_PATH = os.getenv("SSIS_DISCORD_BOT_FLUID_STORAGE_BASE_PATH", "")
 BOT_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_DIRECTORY", os.getcwd()) #The directory that the bot runs in
 SOURCE_FLUID_DATA_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_SOURCE_FLUID_DATA_DIRECTORY", #Where initial fluid data will be (only relevant when using fluid storage (see above))
-                                        os.path.join(BOT_DIRECTORY, "fluid:data"))
+                                        os.path.join(BOT_DIRECTORY, "fluid_data"))
 FLUID_DATA_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_FLUID_DATA_DIRECTORY",
                                  os.path.join(BOT_DIRECTORY, FLUID_STORAGE_BASE_PATH, "fluid_data")) #Directory for storing bot and user data files (data that is fluid and updated by the bot)
 STATIC_DATA_DIRECTORY = os.getenv("SSIS_DISCORD_BOT_STATIC_DATA_DIRECTORY ",
