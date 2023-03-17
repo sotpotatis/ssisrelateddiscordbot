@@ -77,7 +77,7 @@ _Getting the data correct_
 
 - Run `setup_script.sh`
 
-For automatic pre-commit formatting:
+For automatic pre-commit formatting using [Black](https://black.readthedocs.io/en/stable/):
 
 - Make sure you have [Pre-commit](https://pre-commit.com) installed.
 - Run `pre-commit install`.

@@ -1,17 +1,24 @@
-'''good_morning.py
+"""good_morning.py
 The iconic "good morning" message. This has been a heart of the school server for a long time
 and will at the time of this writing be brought back. And of course I am overly dramatic but it
 is a total cornerstone and it makes peoples days and of course I should have brought it back earlier.
 Sorry.
 
 And for the technical stuff, the bot will send the message once someone says something that matches "good morning"
-or similar. In case any other people say good morning, the bot will react with the "blush" emoji.'''
+or similar. In case any other people say good morning, the bot will react with the "blush" emoji."""
 import logging
 import random
 from nextcord.ext.commands import Cog, Bot
 from nextcord import Message, Emoji
-from utils.good_morning import get_good_morning_data, check_is_good_morning_message, write_to_good_morning_file, \
-    ACTION_SEND_MESSAGE, ACTION_REACT, GOOD_MORNING_RESPONSES, get_good_morning_emoji
+from utils.good_morning import (
+    get_good_morning_data,
+    check_is_good_morning_message,
+    write_to_good_morning_file,
+    ACTION_SEND_MESSAGE,
+    ACTION_REACT,
+    GOOD_MORNING_RESPONSES,
+    get_good_morning_emoji,
+)
 from utils.general import get_now
 
 
@@ -38,6 +45,8 @@ class GoodMorning(Cog):
             # React to good morning message
             # Reaction emojis are seasonal. Get which one to react with
             reaction_emoji = get_good_morning_emoji()
-            self.logger.info(f"Reacting to a good morning message with emoji \"{reaction_emoji}\"...")
+            self.logger.info(
+                f'Reacting to a good morning message with emoji "{reaction_emoji}"...'
+            )
             await message.add_reaction(reaction_emoji)
             self.logger.info("Message reacted to.")
