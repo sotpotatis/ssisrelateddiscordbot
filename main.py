@@ -27,14 +27,14 @@ if not os.path.exists(LOGGING_DIRECTORY):
 log_filehandler = RotatingFileHandler(
     filename=LOGGING_HANDLER_FILEPATH,
     encoding="UTF-8",
-    maxBytes=1000000,  # 1MB
+    maxBytes=100000,  # 100kB
     backupCount=10,  # Keep 10 backups
 )
 # Add handler for console output
 log_console_handler = logging.StreamHandler()
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    level=logging.DEBUG,
+    level=logging.INFO,
     handlers=[log_filehandler, log_console_handler],
 )  # Set log level to debug and add rotating file handler
 # Get bot token
