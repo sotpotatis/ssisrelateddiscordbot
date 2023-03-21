@@ -15,7 +15,6 @@ from utils.general import (
 import aiohttp, logging, os
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG)
 
 # Constants
 DEFAULT_SCHEDULE_JSON = {"schedules": {}, "downloaded_at": None}
