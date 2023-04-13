@@ -154,11 +154,11 @@ class Clubs(commands.Cog):
         logger.info("List of clubs created. Sending message...")
         await interaction.response.send_message(embed=final_embed)
 
+    # Note: what is commented out in the code is the code that was used when this was a slash command.
     @commands.command(description="Detta kommando lägger till en ny klubb.")
     async def add_club(
         self,
         ctx,
-        interaction: Interaction,
         club_title: str,  # (description="Titeln som klubben ska ha (t.ex. \"Togethernet\"", required=True),
         club_description: str,  # =SlashOption(description="En kort beskrivning av klubben", required=True),
         role: nextcord.Role,  # = SlashOption(description="Rollen som prenumeranter ska ha", required=False),
@@ -174,16 +174,14 @@ class Clubs(commands.Cog):
         # Create a role for the club if not specified
         if role == None:
             logger.info("Creating base role...")
-            role = await interaction.guild.create_role(name=f"{club_title} - Notiser")
+            role = await ctx.guild.create_role(name=f"{club_title} - Notiser")
             logger.info("Base role created.")
         else:
             logger.info("Base role specified. Using it...")
         # Create a role for owners of the club if not specified
         if owners_role == None:
             logger.info("Creating role for responsible person...")
-            owners_role = await interaction.guild.create_role(
-                name=f"Ansvarig - {club_title}"
-            )
+            owners_role = await ctx.guild.create_role(name=f"Ansvarig - {club_title}")
             logger.info("Role for responsible person created.")
         else:
             logger.info("Role for responsible person specified. Using it...")
