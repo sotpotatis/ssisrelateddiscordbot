@@ -113,3 +113,17 @@ def remove_subscriber_from_club(club_id, user):
     clubs_data["clubs"][club_index] = club_data
     write_clubs_data(clubs_data)
     logger.info("User unsubscribed to the club.")
+
+
+def update_club_data_by_id(club_id: str, new_data: dict):
+    """Allows to update the data of a club using its ID.
+
+    :param club_id: The ID of the club.
+
+    :param new_data: The new data to set on the club."""
+    clubs_data = get_clubs_data()
+    club, club_index = get_club_by_id(club_id, return_index=True)
+    if club is None:
+        raise KeyError("The club to update could not be found.")
+    clubs_data["clubs"][club_index] = new_data
+    write_clubs_data(clubs_data)

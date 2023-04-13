@@ -9,6 +9,7 @@ from nextcord import Interaction, SlashOption
 from utils.clubs import *
 from utils.general import generate_error_embed
 from utils.color_const import CLUBS_EMBED_COLOR
+from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -156,6 +157,7 @@ class Clubs(commands.Cog):
 
     # Note: what is commented out in the code is the code that was used when this was a slash command.
     @commands.command(description="Detta kommando lägger till en ny klubb.")
+    @commands.has_permissions(administrator=True)
     async def add_club(
         self,
         ctx,
@@ -212,6 +214,7 @@ class Clubs(commands.Cog):
     @commands.command(
         description="Lägg till en användare för att vara ägare för en klubb. Denne får en roll som ansvarig."
     )
+    @commands.has_permissions(administrator=True)
     async def add_club_owner(
         self,
         ctx,  # interaction: Interaction,
@@ -228,7 +231,7 @@ class Clubs(commands.Cog):
             logger.debug("The club does not exist. Returning error...")
             await ctx.send(
                 embed=generate_error_embed(
-                    "Klubben du försöker lägga till en användare",
+                    "Klubben existerar inte",
                     "Klubben du försöker lägga till existerar inte. (skriv in klubbens ID, om du är osäker tagga Albin Seijmer TE20A)",
                 )
             )
@@ -255,6 +258,145 @@ class Clubs(commands.Cog):
             )
         )
 
+    @commands.command(description="Redigera en konfigurationsparameter för en klubb.")
+    @commands.has_permissions(administrator=True)
+    async def edit_club_configuration(
+        self,
+        ctx,
+        club_id: str,
+        parameter_name: str,
+        new_value: str,
+        action: Optional[str] = None,
+    ):
+        """Allows editing the raw configuration file parameters for a club. Advanced command. Useful for updating description etc."""
+        logger.info("Got a request to edit a club's configuration parameter!")
+        club_data = get_club_by_id(club_id)
+        if club_data is None:
+            logger.debug("The club does not exist. Returning error...")
+            await ctx.send(
+                embed=generate_error_embed(
+                    "Klubben existerar inte",
+                    "Klubben du försöker ändra existerar inte. (skriv in klubbens ID, om du är osäker tagga Albin Seijmer TE20A)",
+                )
+            )
+        ALLOWED_CLUB_CONFIGURATION_PARAMETERS = {
+            "title": str,
+            "description": str,
+            "id": str,
+            "emoji": str,
+            "role_id": int,
+            "owners_role_id": int,
+            "links": list,
+        }
+        ALLOWED_CLUB_CONFIGURATION_PARAMETERS_TEXT = ",".join(
+            [
+                f"`{parameter}`"
+                for parameter in ALLOWED_CLUB_CONFIGURATION_PARAMETERS.keys()
+            ]
+        )  # User-friendly text of allowed parameters (oneliners are fun btw!)
+        # Validate that action is allowed
+        if parameter_name not in ALLOWED_CLUB_CONFIGURATION_PARAMETERS:
+            logger.debug("Non-allowed parameter to edit.")
+            await ctx.send(
+                embed=generate_error_embed(
+                    "Otillåten parameter",
+                    f"Den parametern du försöker ändra är inte tillåten. Du kan endast ändra följande parametrar: {ALLOWED_CLUB_CONFIGURATION_PARAMETERS_TEXT}",
+                )
+            )
+            return
+        # If value to edit is allowed, check type and handle accordingly.
+        value_type = ALLOWED_CLUB_CONFIGURATION_PARAMETERS[parameter_name]
+        if value_type == str:
+            club_data[parameter_name] = new_value
+        elif value_type == int:
+            try:
+                club_data[parameter_name] = int(new_value)
+            except Exception as e:
+                logger.debug(
+                    f"Failed to edit integer parameter in club data: {e} (value was {new_value})"
+                )
+                await ctx.send(
+                    embed=generate_error_embed(
+                        "Felaktigt nummer",
+                        "Det verkar som att parametern du skrev in inte verkar gå att konvertera till ett nummer. Var vänlig testa igen med en annan parameter.",
+                    )
+                )
+                return
+        elif value_type == list:
+            # For lists, we use the action parameter of this command.
+            # There are these valid actions:
+            ALLOWED_PARAMETER_ACTIONS = ["remove", "clear", "append"]
+            ALLOWED_PARAMETER_ACTIONS_TEXT = ",".join(
+                [f"`{action}`" for action in ALLOWED_PARAMETER_ACTIONS]
+            )
+            # (for appending to the list, you can also leave this blank)
+            if action is not None and action not in ALLOWED_PARAMETER_ACTIONS:
+                logger.debug(f"Invalid action: {action} entered.")
+                await ctx.send(
+                    embed=generate_error_embed(
+                        "Otillåtet listkommando",
+                        f"Vänligen välj något av följande angående listkommandon: {ALLOWED_PARAMETER_ACTIONS_TEXT}",
+                    )
+                )
+                return
+            elif action is None or action == "append":
+                club_data[parameter_name].append(new_value)
+            elif action == "clear":  # Clear list
+                club_data[parameter_name] = []
+                logger.info("List cleared.")
+            elif action == "remove":  # Remove from list
+                # For this parameter, the value to change to should be the index to remove. Validate it.
+                try:
+                    index_to_remove = int(new_value)
+                except Exception as e:
+                    logger.debug(f"Failed to convert index to integer.")
+                    await ctx.send(
+                        embed=generate_error_embed(
+                            "Felaktigt nummer",
+                            "Det verkar som att indexet du skrev in inte verkar gå att konvertera till ett nummer. Var vänlig testa igen med en annan parameter.",
+                        )
+                    )
+                    return
+                list_to_edit = club_data[parameter_name]
+                if len(list_to_edit) == 0:
+                    logger.debug("Invalid index (empty list).")
+                    await ctx.send(
+                        embed=generate_error_embed(
+                            "Felaktigt listindex",
+                            f"Listan är tom. För att ta bort ett index, lägg in lite data.",
+                        )
+                    )
+                    return
+                elif not (-len(list_to_edit) < index_to_remove < len(list_to_edit)):
+                    logger.debug("Invalid index (is not in range).")
+                    await ctx.send(
+                        embed=generate_error_embed(
+                            "Felaktigt listindex",
+                            f"Det verkar som att indexet du skrev in inte verkar finnas i listan. (listans längd är `{len(list_to_edit)}`)",
+                        )
+                    )
+                    return
+                list_to_edit.pop(index_to_remove)
+                logger.info("List edited.")
+        else:
+            logger.warning(
+                f"No value type converter provided for {value_type}. The requested value will not be edited."
+            )
+        logger.debug(
+            f"{value_type} parameter {parameter_name}  on club {club_id} was changed to {club_data[parameter_name]}."
+        )
+        update_club_data_by_id(club_id, club_data)
+        new_club_data = get_club_by_id(club_id)
+        logger.info("Club data updated. Sending...")
+        await ctx.send(
+            embed=Embed(
+                title="✅ Uppdaterat!",
+                description=f"Parametern `{parameter_name}` för klubben `{club_id}` har uppdaterats till det nya värdet `{new_club_data[parameter_name]}`.",
+                color=CLUBS_EMBED_COLOR,
+            )
+        )
+
+    # Autocomplete handlers.
     @subscribe_to_club.on_autocomplete("club_id")
     @unsubcribe_to_club.on_autocomplete("club_id")
     # @add_club_owner.on_autocomplete("club_id") Note: This handler has now been commented out until there is a nice way for permission handling slash commands in nextcord.
