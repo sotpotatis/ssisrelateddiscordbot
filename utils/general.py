@@ -38,7 +38,7 @@ FLUID_DATA_DIRECTORY = os.getenv(
 STATIC_DATA_DIRECTORY = os.getenv(
     "SSIS_DISCORD_BOT_STATIC_DATA_DIRECTORY ",
     os.path.join(BOT_DIRECTORY, "static_data"),
-)  # Directiory for storing static data (that is not updated by the bot)
+)  # Directory for storing static data (that is not updated by the bot)
 CLUBS_DATA_FILEPATH = os.path.join(
     FLUID_DATA_DIRECTORY, "clubs.json"
 )  # File for storing club fluid_data

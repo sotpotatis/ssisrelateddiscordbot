@@ -14,8 +14,10 @@ from bot_commands import (
     good_morning,
     seasonal_profile_pictures,
 )  # Import bot commands
+from dotenv import load_dotenv
 from utils.general import LOGGING_DIRECTORY, LOGGING_HANDLER_FILEPATH
 
+load_dotenv()
 # Set up logging
 logger = logging.getLogger(__name__)
 # Log handler
@@ -32,9 +34,19 @@ log_filehandler = RotatingFileHandler(
 )
 # Add handler for console output
 log_console_handler = logging.StreamHandler()
+LOG_LEVELS = {  # Mapping: human readable string --> logging level.
+    "debug": logging.DEBUG,
+    "info": logging.INFO,
+    "warning": logging.WARNING,
+    "error": logging.ERROR,
+}
+try:
+    log_level = LOG_LEVELS[os.environ.get("SSIS_BOT_LOG_LEVEL", "warning")]
+except KeyError:
+    raise KeyError("Invalid log level entered.")
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO,
+    level=log_level,
     handlers=[log_filehandler, log_console_handler],
 )  # Set log level to debug and add rotating file handler
 # Get bot token
