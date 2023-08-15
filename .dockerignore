@@ -1,6 +1,0 @@
-pre-commit.bat
-.env
-ssisbot.service
-ssisbot_noenv.service
-startup_bot.sh
-startup_bot_no_venv_set_env.ssh

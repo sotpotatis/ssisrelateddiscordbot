@@ -1,6 +1,0 @@
-[submodule "utils/ssis-schedule-python"]
-	path = utils/ssis-schedule-python
-	url = https://github.com/sotpotatis/SSIS-Schedule-Python.git
-[submodule "utils/ssis_schedule_python"]
-	path = utils/ssis_schedule_python
-	url = https://github.com/sotpotatis/SSIS-Schedule-Python.git

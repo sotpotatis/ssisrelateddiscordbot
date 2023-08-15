@@ -1,7 +1,0 @@
-/logging/
-/venv/
-fluid_data/menu.json
-fluid_data/pentryansvar.json
-.idea
-utils/ssis_schedule_python
-.env
